@@ -5,10 +5,18 @@ interface RouteProps {
 }
 
 const MovieDisplay: React.FC<RouteProps> = (props) => {
+  const getDisplayName = (type: string) => {
+    let nameArr = type.replace('-', ' ').split(' ');
+    for (var i = 0; i < nameArr.length; i++) {
+      nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1);     
+    }
+    return nameArr.join(' ');
+  }
+
   const getApiRoute = (type: string) => {
     let categoryString: string = "";
     let queryString: string = "";
-    
+
     switch (type) {
       case "trending":
         categoryString = "trending/all/week"
@@ -45,10 +53,13 @@ const MovieDisplay: React.FC<RouteProps> = (props) => {
     // fetch and stuff
   }
 
+  const displayName: string = getDisplayName(props.type)
+
   return (
     <>
       <div className="pt-50">
-        <h1>Home {getApiRoute(props.type)}</h1>
+        <h1>{displayName}</h1>
+        <h2>{getApiRoute(props.type)}</h2>
       </div>
     </>
   )

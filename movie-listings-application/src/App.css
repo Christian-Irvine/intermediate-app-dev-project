@@ -18,6 +18,22 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+h1 {
+  font-size: 4.7em;
+  line-height: 1.1;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 3.1em;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: 1em;
+  line-height: 1.1;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
