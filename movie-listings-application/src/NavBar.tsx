@@ -15,23 +15,33 @@ import {
 const NavBar = () => {
     return (
       <>
-        <div className="bg-slate-700 flex justify-evenly">
+        <div className="bg-slate-700 flex justify-evenly w-full">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem className="px-15 py-8"> 
-                <NavLink to="/trending">Trending</NavLink>
+              <NavigationMenuItem > 
+                <NavLink to="/trending">
+                  <div className="px-15 py-8 hover:bg-slate-800">Trending</div>
+                </NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-8">
-                <NavLink to="/top-rated">Top Rated</NavLink>
+              <NavigationMenuItem > 
+                <NavLink to="/top-rated">
+                  <div className="px-15 py-8 hover:bg-slate-800">Top Rated</div>
+                </NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-8">
-                <NavLink to="/action">Action</NavLink>
+              <NavigationMenuItem > 
+                <NavLink to="/action">
+                  <div className="px-15 py-8 hover:bg-slate-800">Action</div>
+                </NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-8">
-                <NavLink to="/animation">Animation</NavLink>
+              <NavigationMenuItem > 
+                <NavLink to="/animation">
+                  <div className="px-15 py-8 hover:bg-slate-800">Animation</div>
+                </NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-8">
-                <NavLink to="/comedy">Comedy</NavLink>
+              <NavigationMenuItem > 
+                <NavLink to="/comedy">
+                  <div className="px-15 py-8 hover:bg-slate-800">Comedy</div>
+                </NavLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>

@@ -7,8 +7,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<NavBar />}>
+          <Route path="*" element={<PageNotFound />} />
           <Route index element={<MovieDisplay type="trending"/>} />
           <Route path="/trending" element={<MovieDisplay type="trending"/>} />
           <Route path="/top-rated" element={<MovieDisplay type="top-rated"/>} />
