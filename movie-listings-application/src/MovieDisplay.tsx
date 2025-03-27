@@ -1,3 +1,14 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./components/ui/card"
+
+import { useState } from "react";
+
 import './App.css'
 
 interface RouteProps {
@@ -5,6 +16,8 @@ interface RouteProps {
 }
 
 const MovieDisplay: React.FC<RouteProps> = (props) => {
+  const [movies] = useState([]);
+
   const getDisplayName = (type: string) => {
     let nameArr = type.replace('-', ' ').split(' ');
     for (var i = 0; i < nameArr.length; i++) {
@@ -57,9 +70,24 @@ const MovieDisplay: React.FC<RouteProps> = (props) => {
 
   return (
     <>
-      <div className="pt-50">
-        <h1>{displayName}</h1>
-        <h2>{getApiRoute(props.type)}</h2>
+      <h1 className="p-20">{displayName}</h1>
+      <div className="grid grid-cols-10 gap-4 py-50 px-15">
+        <Card>
+          <CardHeader>
+            <CardTitle>Movie Name</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Card Content</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Movie Name</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>Card Content</p>
+          </CardContent>
+        </Card>
       </div>
     </>
   )
