@@ -18,19 +18,19 @@ const NavBar = () => {
         <div className="bg-slate-700 flex justify-evenly">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem className="px-15 py-5"> 
+              <NavigationMenuItem className="px-15 py-8"> 
                 <NavLink to="/trending">Trending</NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-5">
+              <NavigationMenuItem className="px-15 py-8">
                 <NavLink to="/top-rated">Top Rated</NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-5">
+              <NavigationMenuItem className="px-15 py-8">
                 <NavLink to="/action">Action</NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-5">
+              <NavigationMenuItem className="px-15 py-8">
                 <NavLink to="/animation">Animation</NavLink>
               </NavigationMenuItem>
-              <NavigationMenuItem className="px-15 py-5">
+              <NavigationMenuItem className="px-15 py-8">
                 <NavLink to="/comedy">Comedy</NavLink>
               </NavigationMenuItem>
             </NavigationMenuList>

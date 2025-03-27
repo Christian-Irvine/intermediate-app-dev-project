@@ -47,7 +47,9 @@ const MovieDisplay: React.FC<RouteProps> = (props) => {
 
   return (
     <>
-      <h1>Home {getApiRoute(props.type)}</h1>
+      <div className="pt-50">
+        <h1>Home {getApiRoute(props.type)}</h1>
+      </div>
     </>
   )
 }
