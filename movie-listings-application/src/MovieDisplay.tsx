@@ -26,7 +26,7 @@ const MovieDisplay: React.FC<RouteProps> = (props) => {
         categoryString = "discover/movie"
         queryString = "with_genres=16"
         break;
-      case "action":
+      case "comedy":
         categoryString = "discover/movie"
         queryString = "with_genres=35"
         break;
