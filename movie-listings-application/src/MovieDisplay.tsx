@@ -1,9 +1,13 @@
 import './App.css'
 
-const Home = () => {
+interface RouteProps {
+  type: string,
+}
+
+const Home: React.FC<RouteProps> = (props) => {
     return (
       <>
-        <h1>Home</h1>
+        <h1>Home {props.type}</h1>
       </>
     )
   }
