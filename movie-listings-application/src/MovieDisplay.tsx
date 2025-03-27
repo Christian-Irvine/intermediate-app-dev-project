@@ -30,6 +30,9 @@ const MovieDisplay: React.FC<RouteProps> = (props) => {
         categoryString = "discover/movie"
         queryString = "with_genres=35"
         break;
+      default:
+        console.log(`Error: invalid type ${type} was entered, this type does not exist.`);
+        return ""
     }
 
     return `https://api.themoviedb.org/3/${categoryString}?api_key=${"key"}&${queryString}`

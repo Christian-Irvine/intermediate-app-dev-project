@@ -1,14 +1,44 @@
-import { Outlet } from 'react-router'
-import './App.css'
+import { Outlet } from "react-router";
+import { Link, NavLink } from "react-router";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "./components/ui/navigation-menu"
+ //className="ps-15 pb-5 pt-5"
 
 const NavBar = () => {
-  return (
-    <>
-      <h1>NavBar</h1>
-      <Outlet/>
-    </>
-  )
-}
+    return (
+      <>
+        <div className="bg-slate-700 flex justify-evenly">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavigationMenuItem className="px-15 py-5"> 
+                <NavLink to="/trending">Trending</NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="px-15 py-5">
+                <NavLink to="/top-rated">Top Rated</NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="px-15 py-5">
+                <NavLink to="/action">Action</NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="px-15 py-5">
+                <NavLink to="/animation">Animation</NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem className="px-15 py-5">
+                <NavLink to="/comedy">Comedy</NavLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+          <Outlet />
+      </>
+    )
+  }
   
-export default NavBar
-  
+  export default NavBar
