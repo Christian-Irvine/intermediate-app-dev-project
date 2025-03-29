@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import '../App.css'
@@ -18,9 +17,7 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
     queryFn: () =>
       fetch(getApiRoute(props.type)).then((res: Response) => res.json()),
   });
-
-  console.log(movieData);
-
+  
   // turns the url name into the display title for the page
   const getDisplayName = (type: string) => {
     let nameArr: string[] = type.replace('-', ' ').split(' ');
@@ -66,7 +63,7 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
 
   const displayName: string = getDisplayName(props.type)
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <h1 className="p-20">Loading...</h1>;
   if (error) return <p>{error.message}</p>;
 
   return (
@@ -74,10 +71,11 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
       <h1 className="p-20">{displayName}</h1>
       {movieData.results.length > 0 ? (
         <>
-          {movieData.results.map((movie: any) => (
-            <MovieCard key={movie.id} name={movie.title || movie.name} description={movie.overview} popularity={movie.popularity}/>
-            
-          ))}
+          <div className="grid grid-cols-10 gap-4 py-20 px-15">
+            {movieData.results.map((movie: any) => (
+              <MovieCard key={movie.id} name={movie.title || movie.name} posterPath={movie.poster_path} popularity={movie.popularity}/>
+            ))}
+          </div>
         </>
       ) : (
         <p>No data available.</p>
