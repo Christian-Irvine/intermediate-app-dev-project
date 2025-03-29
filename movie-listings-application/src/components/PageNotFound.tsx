@@ -1,6 +1,6 @@
-import './App.css'
+import '../App.css'
 
-const PageNotFound = () => {
+const PageNotFound: React.FC = () => {
   return (
     <>
       <h1>Error 404: Page Not Found</h1>

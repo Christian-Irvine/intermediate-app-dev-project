@@ -9,10 +9,10 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "./components/ui/navigation-menu"
+} from "./ui/navigation-menu"
  //className="ps-15 pb-5 pt-5"
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
     return (
       <>
         <div className="bg-slate-700 flex justify-evenly w-full">

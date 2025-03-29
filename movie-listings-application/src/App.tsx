@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import NavBar from './NavBar';
-import MovieDisplay from './MovieDisplay';
-import PageNotFound from './PageNotFound';
+import NavBar from './components/NavBar';
+import MovieDisplay from './components/MovieDisplay';
+import PageNotFound from './components/PageNotFound';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>

@@ -1,25 +1,29 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./components/ui/card"
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import { useState } from "react";
-
-import './App.css'
+import '../App.css'
+import MovieCard from "./MovieCard";
 
 interface RouteProps {
   type: string,
 }
 
-const MovieDisplay: React.FC<RouteProps> = (props) => {
-  const [movies] = useState([]);
+const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
+  const {
+    isLoading,
+    error,
+    data: movieData,
+  } = useQuery({
+    queryKey: ["movieData"],
+    queryFn: () =>
+      fetch(getApiRoute(props.type)).then((res: Response) => res.json()),
+  });
 
+  console.log(movieData);
+
+  // turns the url name into the display title for the page
   const getDisplayName = (type: string) => {
-    let nameArr = type.replace('-', ' ').split(' ');
+    let nameArr: string[] = type.replace('-', ' ').split(' ');
     for (var i = 0; i < nameArr.length; i++) {
       nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1);     
     }
@@ -29,6 +33,7 @@ const MovieDisplay: React.FC<RouteProps> = (props) => {
   const getApiRoute = (type: string) => {
     let categoryString: string = "";
     let queryString: string = "";
+    
 
     switch (type) {
       case "trending":
@@ -56,39 +61,27 @@ const MovieDisplay: React.FC<RouteProps> = (props) => {
         return ""
     }
 
-    return `https://api.themoviedb.org/3/${categoryString}?api_key=${"key"}&${queryString}`
-  }
-
-  const fetchData = () => {
-    const route: string = getApiRoute(props.type);
-
-
-    // fetch and stuff
+    return `https://api.themoviedb.org/3/${categoryString}?api_key=${DONTPUSHKEY}&${queryString}`
   }
 
   const displayName: string = getDisplayName(props.type)
 
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>{error.message}</p>;
+
   return (
     <>
       <h1 className="p-20">{displayName}</h1>
-      <div className="grid grid-cols-10 gap-4 py-50 px-15">
-        <Card>
-          <CardHeader>
-            <CardTitle>Movie Name</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Movie Name</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>Card Content</p>
-          </CardContent>
-        </Card>
-      </div>
+      {movieData.results.length > 0 ? (
+        <>
+          {movieData.results.map((movie: any) => (
+            <MovieCard key={movie.id} name={movie.title || movie.name} description={movie.overview} popularity={movie.popularity}/>
+            
+          ))}
+        </>
+      ) : (
+        <p>No data available.</p>
+      )}
     </>
   )
 }
