@@ -55,9 +55,23 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
   const displayName: string = getDisplayName(props.type)
 
   if (isLoading) return <h1 className="p-20">Loading...</h1>;
-  if (error) return <p>{error.message}</p>;
+  if (error) 
+    return (
+      <>
+        <h2 className="p-20">Something went wrong, please try again later.</h2>
+        <p>{error.message}</p> 
+      </>
+    );
 
-  const displayData = movieData.results.slice(0, 10);
+  let movieMax = Math.min(10, movieData.results.length);
+  const displayData = movieData.results.slice(0, movieMax);
+
+  if (displayData.length === 0)
+    return (
+      <>
+        <h2 className="p-20">No data to show for {displayName}, please Try Again Later.</h2>
+      </>
+    );
 
   return (
     <>
