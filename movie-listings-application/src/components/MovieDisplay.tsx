@@ -63,8 +63,8 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
       </>
     );
 
-  let movieMax = Math.min(10, movieData.results.length);
-  const displayData = movieData.results.slice(0, movieMax);
+  const movieMax: number = Math.min(10, movieData.results.length);
+  const displayData: Array<Object> = movieData.results.slice(0, movieMax);
 
   if (displayData.length === 0)
     return (
