@@ -66,7 +66,7 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
         <>
           <div className="grid grid-cols-5 gap-4 py-20 px-15">
             {displayData.map((movie: any) => (
-              <MovieCard key={movie.id} name={movie.title || movie.name} posterPath={movie.poster_path} overview={movie.popularity} releaseDate={movie.release_date}/>
+              <MovieCard key={movie.id} name={movie.title || movie.name} posterPath={movie.poster_path} overview={movie.popularity} releaseDate={movie.release_date || movie.first_air_date}/>
             ))}
           </div>
         </>
