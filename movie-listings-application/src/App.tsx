@@ -15,12 +15,12 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<NavBar />}>
+        <Route path="/" element={<NavBar routes={routes}/>}>
           <Route path="*" element={<PageNotFound />} />
           <Route index element={<MovieDisplay type={routes[0]}/>} />
           {routes.map((route: any) => (
-              <Route path={route} element={<MovieDisplay type={route}/>} />
-            ))}
+            <Route key={route} path={route} element={<MovieDisplay type={route}/>} />
+          ))}
         </Route>
       </Routes>
     </BrowserRouter>

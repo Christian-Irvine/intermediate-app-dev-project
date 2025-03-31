@@ -18,31 +18,13 @@ const NavBar: React.FC<NavProps> = (props: NavProps) => {
         <div className="bg-slate-700 flex justify-evenly w-full">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem > 
-                <NavLink to="/trending">
-                  <div className="px-15 py-8 hover:bg-slate-800">Trending</div>
-                </NavLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem > 
-                <NavLink to="/top-rated">
-                  <div className="px-15 py-8 hover:bg-slate-800">Top Rated</div>
-                </NavLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem > 
-                <NavLink to="/action">
-                  <div className="px-15 py-8 hover:bg-slate-800">Action</div>
-                </NavLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem > 
-                <NavLink to="/animation">
-                  <div className="px-15 py-8 hover:bg-slate-800">Animation</div>
-                </NavLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem > 
-                <NavLink to="/comedy">
-                  <div className="px-15 py-8 hover:bg-slate-800">Comedy</div>
-                </NavLink>
-              </NavigationMenuItem>
+              {props.routes.map((route: any) => (                
+                <NavigationMenuItem key={route}> 
+                  <NavLink to={`/${route}`}>
+                    <div className="px-15 py-8 hover:bg-slate-800">{getDisplayName(route)}</div>
+                  </NavLink>
+                </NavigationMenuItem>
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
         </div>
