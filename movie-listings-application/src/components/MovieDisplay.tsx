@@ -38,7 +38,7 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
         queryString = "language=en-US"
         break;
       case "top-rated":
-        categoryString = "top_rated"
+        categoryString = "movie/top_rated"
         queryString = "language=en-US"
         break;
       case "action":
@@ -58,7 +58,7 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
         return ""
     }
 
-    return `https://api.themoviedb.org/3/${categoryString}?api_key=${DONTPUSHKEY}&${queryString}`
+    return `https://api.themoviedb.org/3/${categoryString}?api_key=${import.meta.env.VITE_API_KEY}&${queryString}`
   }
 
   const displayName: string = getDisplayName(props.type)
@@ -66,12 +66,14 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
   if (isLoading) return <h1 className="p-20">Loading...</h1>;
   if (error) return <p>{error.message}</p>;
 
+  console.log(getApiRoute(props.type))
+
   return (
     <>
       <h1 className="p-20">{displayName}</h1>
       {movieData.results.length > 0 ? (
         <>
-          <div className="grid grid-cols-10 gap-4 py-20 px-15">
+          <div className="grid grid-cols-5 gap-4 py-20 px-15">
             {movieData.results.map((movie: any) => (
               <MovieCard key={movie.id} name={movie.title || movie.name} posterPath={movie.poster_path} popularity={movie.popularity}/>
             ))}
