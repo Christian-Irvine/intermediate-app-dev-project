@@ -10,7 +10,7 @@ const App: React.FC = () => {
     "action",
     "animation",
     "comedy"
-  ]
+  ];
 
   return (
     <BrowserRouter>

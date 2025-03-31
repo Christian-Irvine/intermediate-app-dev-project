@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import '../App.css'
 import MovieCard from "./MovieCard";
+import { getDisplayName } from "../Utils";
 
 interface RouteProps {
   type: string,
@@ -17,20 +18,10 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
     queryFn: () =>
       fetch(getApiRoute(props.type)).then((res: Response) => res.json()),
   });
-  
-  // turns the url name into the display title for the page
-  const getDisplayName = (type: string) => {
-    let nameArr: string[] = type.replace('-', ' ').split(' ');
-    for (var i = 0; i < nameArr.length; i++) {
-      nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1);     
-    }
-    return nameArr.join(' ');
-  }
 
   const getApiRoute = (type: string) => {
     let categoryString: string = "";
     let queryString: string = "";
-    
 
     switch (type) {
       case "trending":
