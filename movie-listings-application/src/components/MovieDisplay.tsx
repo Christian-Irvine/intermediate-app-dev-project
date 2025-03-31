@@ -66,15 +66,15 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
   if (isLoading) return <h1 className="p-20">Loading...</h1>;
   if (error) return <p>{error.message}</p>;
 
-  console.log(getApiRoute(props.type))
+  const displayData = movieData.results.slice(0, 10);
 
   return (
     <>
       <h1 className="p-20">{displayName}</h1>
-      {movieData.results.length > 0 ? (
+      {displayData.length > 0 ? (
         <>
           <div className="grid grid-cols-5 gap-4 py-20 px-15">
-            {movieData.results.map((movie: any) => (
+            {displayData.map((movie: any) => (
               <MovieCard key={movie.id} name={movie.title || movie.name} posterPath={movie.poster_path} overview={movie.popularity} releaseDate={movie.release_date}/>
             ))}
           </div>
