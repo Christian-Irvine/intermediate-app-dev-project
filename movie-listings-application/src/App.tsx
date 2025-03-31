@@ -4,17 +4,23 @@ import MovieDisplay from './components/MovieDisplay';
 import PageNotFound from './components/PageNotFound';
 
 const App: React.FC = () => {
+  const routes: Array<string> = [
+    "trending",
+    "top-rated",
+    "action",
+    "animation",
+    "comedy"
+  ]
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<NavBar />}>
           <Route path="*" element={<PageNotFound />} />
-          <Route index element={<MovieDisplay type="trending"/>} />
-          <Route path="/trending" element={<MovieDisplay type="trending"/>} />
-          <Route path="/top-rated" element={<MovieDisplay type="top-rated"/>} />
-          <Route path="/action" element={<MovieDisplay type="action"/>} />
-          <Route path="/animation" element={<MovieDisplay type="animation"/>} />
-          <Route path="/comedy" element={<MovieDisplay type="comedy"/>} />
+          <Route index element={<MovieDisplay type={routes[0]}/>} />
+          {routes.map((route: any) => (
+              <Route path={route} element={<MovieDisplay type={route}/>} />
+            ))}
         </Route>
       </Routes>
     </BrowserRouter>
