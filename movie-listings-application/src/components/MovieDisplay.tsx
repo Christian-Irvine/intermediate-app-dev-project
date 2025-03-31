@@ -13,7 +13,7 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
     error,
     data: movieData,
   } = useQuery({
-    queryKey: ["movieData"],
+    queryKey: [props.type],
     queryFn: () =>
       fetch(getApiRoute(props.type)).then((res: Response) => res.json()),
   });
@@ -75,7 +75,7 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
         <>
           <div className="grid grid-cols-5 gap-4 py-20 px-15">
             {movieData.results.map((movie: any) => (
-              <MovieCard key={movie.id} name={movie.title || movie.name} posterPath={movie.poster_path} popularity={movie.popularity}/>
+              <MovieCard key={movie.id} name={movie.title || movie.name} posterPath={movie.poster_path} overview={movie.popularity} />
             ))}
           </div>
         </>
