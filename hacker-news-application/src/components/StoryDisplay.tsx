@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import '../App.css'
-//import StoryCard from "./StoryCard";
+import StoryCard from "./StoryCard";
 import { getDisplayName } from "../Utils";
 
 interface RouteProps {
@@ -12,7 +12,7 @@ const StoryDisplay: React.FC<RouteProps> = (props: RouteProps) => {
   const {
     isLoading,
     error,
-    data: storyData,
+    data: storiesData,
   } = useQuery({
     queryKey: [props.type],
     queryFn: () =>
@@ -36,12 +36,12 @@ const StoryDisplay: React.FC<RouteProps> = (props: RouteProps) => {
       </>
     );
 
-  console.log(storyData)
+  console.log(storiesData)
 
   const maxStories: number = 25;
 
-  const storyMax: number = Math.min(maxStories, storyData.length);
-  const displayData: Array<Object> = storyData.slice(0, storyMax);
+  const storyMax: number = Math.min(maxStories, storiesData.length);
+  const displayData: Array<Object> = storiesData.slice(0, storyMax);
 
 
   if (displayData.length === 0)
@@ -57,9 +57,8 @@ const StoryDisplay: React.FC<RouteProps> = (props: RouteProps) => {
       {displayData.length > 0 ? (
         <>
           <div className="grid grid-cols-5 gap-4 py-20 px-15">
-            {displayData.map((story: any) => (
-              <h1>{story}</h1>
-              // <StoryCard key={story.id} name={story.title || story.name} posterPath={story.poster_path} overview={story.overview} releaseDate={story.release_date || story.first_air_date}/>
+            {displayData.map((storyId: any) => (
+              <StoryCard key={storyId} id={storyId}/>
             ))}
           </div>
         </>
