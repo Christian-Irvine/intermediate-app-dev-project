@@ -1,34 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router";
+import NavBar from './components/NavBar';
+import StoryDisplay from './components/StoryDisplay';
+import PageNotFound from './components/PageNotFound';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const routes: Array<string> = [
+    "ask-stories",
+    "best-stories",
+    "job-stories",
+    "new-stories",
+    "show-stories",
+    "top-stories",
+    "leaders",
+  ];
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<NavBar routes={routes}/>}>
+          <Route path="*" element={<PageNotFound />} />
+          <Route index element={<StoryDisplay type={routes[0]}/>} />
+          {routes.map((route: any) => (            
+            <Route key={route} path={route} element={<StoryDisplay type={route}/>} />
+          ))}
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
