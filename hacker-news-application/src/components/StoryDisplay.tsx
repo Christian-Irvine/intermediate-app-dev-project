@@ -20,36 +20,9 @@ const StoryDisplay: React.FC<RouteProps> = (props: RouteProps) => {
   });
 
   const getApiRoute = (type: string) => {
-    let categoryString: string = "";
-    let queryString: string = "";
+    let urlType: string = type.replace('-', '')
 
-    switch (type) {
-      case "trending":
-        categoryString = "trending/all/week"
-        queryString = "language=en-US"
-        break;
-      case "top-rated":
-        categoryString = "story/top_rated"
-        queryString = "language=en-US"
-        break;
-      case "action":
-        categoryString = "discover/story"
-        queryString = "with_genres=28"
-        break;
-      case "animation":
-        categoryString = "discover/story"
-        queryString = "with_genres=16"
-        break;
-      case "comedy":
-        categoryString = "discover/story"
-        queryString = "with_genres=35"
-        break;
-      default:
-        console.log(`Error: invalid type ${type} was entered, this type does not exist.`);
-        return ""
-    }
-
-    return `https://api.thestorydb.org/3/${categoryString}?api_key=${import.meta.env.VITE_API_KEY}&${queryString}`
+    return `https://hacker-news.firebaseio.com/v0/${urlType}.json?print=pretty`
   }
 
   const displayName: string = getDisplayName(props.type)
@@ -63,8 +36,13 @@ const StoryDisplay: React.FC<RouteProps> = (props: RouteProps) => {
       </>
     );
 
-  const storyMax: number = Math.min(10, storyData.results.length);
-  const displayData: Array<Object> = storyData.results.slice(0, storyMax);
+  console.log(storyData)
+
+  const maxStories: number = 25;
+
+  const storyMax: number = Math.min(maxStories, storyData.length);
+  const displayData: Array<Object> = storyData.slice(0, storyMax);
+
 
   if (displayData.length === 0)
     return (
@@ -80,7 +58,7 @@ const StoryDisplay: React.FC<RouteProps> = (props: RouteProps) => {
         <>
           <div className="grid grid-cols-5 gap-4 py-20 px-15">
             {displayData.map((story: any) => (
-              <h1>Hello</h1>
+              <h1>{story}</h1>
               // <StoryCard key={story.id} name={story.title || story.name} posterPath={story.poster_path} overview={story.overview} releaseDate={story.release_date || story.first_air_date}/>
             ))}
           </div>
