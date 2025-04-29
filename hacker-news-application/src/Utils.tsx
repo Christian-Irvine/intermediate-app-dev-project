@@ -7,3 +7,8 @@ export const getDisplayName = (type: string) => {
   
   return nameArr.join(' ');
 }
+
+// gets the url for a story in the API
+export const getStoryApiRoute = (id: string) => {
+  return `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
+}

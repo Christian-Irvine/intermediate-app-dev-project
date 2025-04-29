@@ -5,6 +5,8 @@ import "../App.css";
 const Story: React.FC = () => {
   const { id } = useParams();
 
+
+  
   return (
     <>
       <p>Hello! this is {id}</p>

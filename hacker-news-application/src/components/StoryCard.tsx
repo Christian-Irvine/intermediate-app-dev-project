@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router";
 import parse from 'html-react-parser';
+import { getStoryApiRoute } from "../Utils";
 
 import {
   Card,
@@ -22,13 +23,8 @@ const StoryCard: React.FC<StoryCardProps> = (props: StoryCardProps) => {
   } = useQuery({
     queryKey: [props.id],
     queryFn: () =>
-      fetch(getApiRoute(props.id)).then((res: Response) => res.json()),
+      fetch(getStoryApiRoute(props.id)).then((res: Response) => res.json()),
   });
-
-  const getApiRoute = (id: string) => {
-    return `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-  }
-
 
   if (isLoading) return <p>Loading...</p>;
   if (error) 
