@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import NavBar from './components/NavBar';
 import StoryDisplay from './components/StoryDisplay';
 import PageNotFound from './components/PageNotFound';
+import Story from "./components/Story";
 
 const App: React.FC = () => {
   const routes: Array<string> = [
@@ -11,7 +12,6 @@ const App: React.FC = () => {
     "new-stories",
     "show-stories",
     "top-stories",
-    "leaders",
   ];
 
   return (
@@ -23,6 +23,7 @@ const App: React.FC = () => {
           {routes.map((route: any) => (            
             <Route key={route} path={route} element={<StoryDisplay type={route}/>} />
           ))}
+          <Route path="story/:id" element={<Story/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

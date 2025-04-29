@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { NavLink } from "react-router";
 import parse from 'html-react-parser';
 
 import {
@@ -32,7 +33,7 @@ const StoryCard: React.FC<StoryCardProps> = (props: StoryCardProps) => {
   if (isLoading) return <p>Loading...</p>;
   if (error) 
     return (
-      <>
+      <>                    
         <Card className="bg-cover aspect-[2/3] py-0 flex shadow-md justify-between">
           <CardTitle className="text-white">
             <div className="bg-linear-to-t from-0% to-gray-950 py-3 rounded-t-xl">Couldn't Find Story: {storyData.id}</div>
@@ -74,17 +75,19 @@ const StoryCard: React.FC<StoryCardProps> = (props: StoryCardProps) => {
 
   return (
     <>
-      <Card className="bg-cover aspect-[15/16] py-0 flex shadow-md justify-between bg-slate-700 hover:bg-slate-800 cursor-pointer">
-        <CardTitle className="text-white font-bold text-lg">
-          <p className="bg-linear-to-t from-0% to-gray-950 py-3 rounded-t-xl">{storyData.title || "No Title."}</p>
-        </CardTitle>
-        <CardDescription className="text-lg text-slate-300 p-5">
-          <p>{description}</p>          
-        </CardDescription>
-        <CardTitle className="text-white">
-          <p className="bg-linear-to-b from-0% to-gray-950 py-2 rounded-b-xl">{`By: ${storyData.by}`}</p>
-        </CardTitle>
-      </Card>
+      <NavLink to={`/story/${props.id}`}>  
+        <Card className="bg-cover aspect-[15/16] py-0 flex shadow-md justify-between bg-slate-700 hover:bg-slate-800 cursor-pointer">
+          <CardTitle className="text-white font-bold text-lg">
+            <p className="bg-linear-to-t from-0% to-gray-950 py-3 rounded-t-xl">{storyData.title || "No Title."}</p>
+          </CardTitle>
+          <CardDescription className="text-lg text-slate-300 p-5">
+            <p>{description}</p>
+          </CardDescription>
+          <CardTitle className="text-white">
+            <p className="bg-linear-to-b from-0% to-gray-950 py-2 rounded-b-xl">{`By: ${storyData.by}`}</p>
+          </CardTitle>
+        </Card>
+      </NavLink>
     </>
   )
 }
