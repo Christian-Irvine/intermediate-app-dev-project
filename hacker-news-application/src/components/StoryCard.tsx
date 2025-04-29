@@ -48,8 +48,6 @@ const StoryCard: React.FC<StoryCardProps> = (props: StoryCardProps) => {
   
   let description: any = parse(storyData.text || "No description.");
 
-  console.log(description);
-
   let tempDescription: string = "";
 
   if (Array.isArray(description)) {
@@ -72,23 +70,21 @@ const StoryCard: React.FC<StoryCardProps> = (props: StoryCardProps) => {
     description += '...'
   }
 
-
+  console.log(storyData);
 
   return (
     <>
-      <div className="flex flex-col">
-        <Card className="bg-cover aspect-[2/3] py-0 flex shadow-md justify-between bg-slate-800">
-          <CardTitle className="text-white font-bold text-lg">
-            <div className="bg-linear-to-t from-0% to-gray-950 py-3 rounded-t-xl">{storyData.title || "No Title."}</div>
-          </CardTitle>
-          <CardDescription className="text-lg text-slate-400">
-            {description}
-          </CardDescription>
-          <CardTitle className="text-white">
-            <div className="bg-linear-to-b from-0% to-gray-950 py-2 rounded-b-xl">{props.id}</div>
-          </CardTitle>
-        </Card>
-      </div>
+      <Card className="bg-cover aspect-[15/16] py-0 flex shadow-md justify-between bg-slate-700 hover:bg-slate-800 cursor-pointer">
+        <CardTitle className="text-white font-bold text-lg">
+          <p className="bg-linear-to-t from-0% to-gray-950 py-3 rounded-t-xl">{storyData.title || "No Title."}</p>
+        </CardTitle>
+        <CardDescription className="text-lg text-slate-300 p-5">
+          <p>{description}</p>          
+        </CardDescription>
+        <CardTitle className="text-white">
+          <p className="bg-linear-to-b from-0% to-gray-950 py-2 rounded-b-xl">{`By: ${storyData.by}`}</p>
+        </CardTitle>
+      </Card>
     </>
   )
 }
