@@ -34,7 +34,7 @@ const Story: React.FC = () => {
         <h2 className="font-bold p-b5">{storyData.title || "No title"}</h2>
         <p className="pt-5">Type: {getDisplayName(storyData.type || "No type")} | Points: {storyData.points || "0"} | Time: {formatTime(storyData.time || "No Time")}</p>
         <article className="text-lg py-5">{parse(storyData.text || "")}</article>
-        
+        <a href={storyData.url} target="_blank">{storyData.url}</a>
       </section>
     </>
   );
