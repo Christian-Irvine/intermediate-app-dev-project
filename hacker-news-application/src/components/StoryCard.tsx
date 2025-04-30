@@ -67,8 +67,6 @@ const StoryCard: React.FC<StoryCardProps> = (props: StoryCardProps) => {
     description += '...'
   }
 
-  console.log(storyData);
-
   return (
     <>
       <NavLink to={`/story/${props.id}`}>  

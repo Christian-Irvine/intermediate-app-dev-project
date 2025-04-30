@@ -36,8 +36,6 @@ const StoryDisplay: React.FC<RouteProps> = (props: RouteProps) => {
       </>
     );
 
-  console.log(storiesData)
-
   const maxStories: number = 25;
 
   const storyMax: number = Math.min(maxStories, storiesData.length);
