@@ -33,8 +33,8 @@ const Story: React.FC = () => {
         <p className="font-bold pt-5">By: {storyData.by || "No username."}</p>
         <h2 className="font-bold p-b5">{storyData.title || "No title"}</h2>
         <p className="pt-5">Type: {getDisplayName(storyData.type || "No type")} | Points: {storyData.points || "0"} | Time: {formatTime(storyData.time || "No Time")}</p>
-
-        <p className="text-lg py-5">{parse(storyData.text || "")}</p>
+        <article className="text-lg py-5">{parse(storyData.text || "")}</article>
+        
       </section>
     </>
   );
