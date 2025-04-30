@@ -3,6 +3,7 @@ import NavBar from './components/NavBar';
 import StoryDisplay from './components/StoryDisplay';
 import PageNotFound from './components/PageNotFound';
 import Story from "./components/Story";
+import UserSearch from "./components/UserSearch";
 
 const App: React.FC = () => {
   const routes: Array<string> = [
@@ -24,6 +25,7 @@ const App: React.FC = () => {
             <Route key={route} path={route} element={<StoryDisplay type={route}/>} />
           ))}
           <Route path="story/:id" element={<Story/>}/>
+          <Route path="user" element={<UserSearch/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

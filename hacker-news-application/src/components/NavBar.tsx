@@ -24,6 +24,11 @@ const NavBar: React.FC<NavProps> = (props: NavProps) => {
                 </NavLink>
               </NavigationMenuItem>
             ))}
+              <NavigationMenuItem> 
+                <NavLink to={'/user'}>
+                  <div className="px-15 py-8 hover:bg-slate-800">Users</div>
+                </NavLink>
+              </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </div>

@@ -27,9 +27,7 @@ const Story: React.FC = () => {
       </>
     );
   }
-
-  console.log(storyData.kids);
-
+  
   const kids: Array<Number> = storyData.kids ? storyData.kids.slice(0, Math.min(5, storyData.kids.length)) : [];
 
   return (
