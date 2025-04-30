@@ -19,22 +19,40 @@ const Story: React.FC = () => {
   });
 
   if (isLoading) return <h1 className="p-20">Loading...</h1>;
-  if (error) 
+  if (error) {
     return (
       <>
         <h2 className="p-20">Something went wrong, please try again later.</h2>
         <p>{error.message}</p> 
       </>
     );
+  }
+
+  console.log(storyData.kids);
+
+  const kids: Array<Number> = storyData.kids ? storyData.kids.slice(0, Math.min(5, storyData.kids.length)) : [];
 
   return (
     <>
       <section className="mx-100 px-20 justify-start text-left bg-slate-100">
         <p className="font-bold pt-5">By: {storyData.by || "No username."}</p>
-        <h2 className="font-bold p-b5">{storyData.title || "No title"}</h2>
-        <p className="pt-5">Type: {getDisplayName(storyData.type || "No type")} | Points: {storyData.points || "0"} | Time: {formatTime(storyData.time || "No Time")}</p>
-        <article className="text-lg py-5">{parse(storyData.text || "")}</article>
-        <a href={storyData.url} target="_blank">{storyData.url}</a>
+        <h2 className="font-bold pt-5">{storyData.title || "No title"}</h2>
+        <p className="pt-5">Type: {getDisplayName(storyData.type || "No type")} | Points: {storyData.points || "0"} | Posted: {formatTime(storyData.time || "No Time")}</p>
+        <article className="text-lg pt-5">{parse(storyData.text || "")}</article>
+        {storyData.url &&
+          <a className="text-lg pt-5" href={storyData.url} target="_blank">{storyData.url}</a>
+        }
+
+        {kids.length > 0 ? (
+          <section className="pt-5 pb-15">
+            <p className="font-bold pb-5">Comments:</p>
+            {kids.map((kid: Number) => (
+              <a key={kid.toString()} className="text-lg pt-5" href={`https://hacker-news.firebaseio.com/v0/item/${kid}.json?print=pretty`} target="_blank">{`https://hacker-news.firebaseio.com/v0/item/${kid}.json?print=pretty`}</a>           
+            ))}
+          </section>
+        ) : (
+          <p className="font-bold pt-5 pb-15">Comments: N/A</p>
+        )}      
       </section>
     </>
   );
