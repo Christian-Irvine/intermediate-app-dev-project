@@ -31,7 +31,6 @@ const UserSearch: React.FC = () => {
 
   const handleUserSubmit = (values: UserInfo) => {
     setSelectedUsernameIndex(usernames.indexOf(values.name));
-    console.log(selectedUsernameIndex);
   }
 
   if (usersData === undefined) return <h1 className="p-20">Loading...</h1>;
@@ -41,10 +40,6 @@ const UserSearch: React.FC = () => {
         <h2 className="p-20">Something went wrong with fetching users, please try again later.</h2>
       </>
     );
-  }
-
-  if (selectedUsernameIndex >= 0 && selectedUsernameIndex < usernames.length) {
-    console.log(usersData[selectedUsernameIndex]);
   }
 
   return (

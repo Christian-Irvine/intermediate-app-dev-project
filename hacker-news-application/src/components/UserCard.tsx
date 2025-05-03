@@ -17,8 +17,6 @@ export interface UserProps {
 const UserCard: React.FC<UserProps> = (props: UserProps) => {
   const maxSubmitted: number = 5;
 
-  console.log(props);
-
   const submittedMax: number = Math.min(maxSubmitted, props.submitted.length);
   const submittedData: Array<number> = props.submitted.slice(0, submittedMax);
 
