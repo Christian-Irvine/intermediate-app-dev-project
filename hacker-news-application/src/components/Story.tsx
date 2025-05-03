@@ -28,7 +28,7 @@ const Story: React.FC = () => {
     );
   }
   
-  const kids: Array<Number> = storyData.kids ? storyData.kids.slice(0, Math.min(5, storyData.kids.length)) : [];
+  const kids: Array<number> = storyData.kids ? storyData.kids.slice(0, Math.min(5, storyData.kids.length)) : [];
 
   return (
     <>
@@ -44,7 +44,7 @@ const Story: React.FC = () => {
         {kids.length > 0 ? (
           <section className="pt-5 pb-15">
             <p className="font-bold pb-5">Comments:</p>
-            {kids.map((kid: Number) => (
+            {kids.map((kid: number) => (
               <a key={kid.toString()} className="text-lg pt-5" href={`https://hacker-news.firebaseio.com/v0/item/${kid}.json?print=pretty`} target="_blank">{`https://hacker-news.firebaseio.com/v0/item/${kid}.json?print=pretty`}</a>           
             ))}
           </section>
