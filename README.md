@@ -6,3 +6,7 @@
 
 ## Milestone One: Movie Listings Application
 [Vercel Deployment](https://movie-listings-application-sigma.vercel.app/)
+
+
+## Milestone Two: Hacker News Application
+[Vercel Deployment](https://hacker-news-application.vercel.app/)
