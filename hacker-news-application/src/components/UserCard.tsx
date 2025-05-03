@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import {
   Card,
   CardTitle,
@@ -7,34 +6,11 @@ import {
 import parse from 'html-react-parser';
 import { formatTime } from "../Utils";
 
-export interface UserInfo {
+export interface UserProps {
   name: string;
 }
 
-const UserDisplay: React.FC<UserInfo> = (props: UserInfo) => {
-  const {
-    isLoading,
-    error,
-    data: userData,
-  } = useQuery({
-    queryKey: [props.name],
-    queryFn: () =>
-      fetch(getApiRoute(props.name)).then((res: Response) => res.json()),
-  });
-
-  const getApiRoute = (name: string) => {
-    return `https://hacker-news.firebaseio.com/v0/user/${name}.json?print=pretty`
-  }
-
-  if (isLoading) return <h1 className="p-20">Loading...</h1>;
-  if (error) 
-    return (
-      <>
-        <h2 className="p-20">Something went wrong, please try again later.</h2>
-        <p>{error.message}</p> 
-      </>
-    );
-
+const UserCard: React.FC<UserProps> = (props: UserProps) => {
   const maxSubmitted: number = 5;
 
   const storyMax: number = Math.min(maxSubmitted, userData.submitted.length);
@@ -65,5 +41,5 @@ const UserDisplay: React.FC<UserInfo> = (props: UserInfo) => {
   )
 }
   
-export default UserDisplay
+export default UserCard
   
