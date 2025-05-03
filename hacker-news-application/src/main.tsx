@@ -4,7 +4,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import './index.css'
 import App from './App.tsx'
 
-export const queryClient = new QueryClient();
+export const queryClient: QueryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

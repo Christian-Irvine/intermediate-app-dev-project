@@ -25,11 +25,11 @@ const UserSearch: React.FC = () => {
     }))
   });
 
-  const getApiRoute = (username: string) => {
+  const getApiRoute: Function = (username: string) => {
     return `https://hacker-news.firebaseio.com/v0/user/${username}.json?print=pretty`
   }
 
-  const handleUserSubmit = (values: UserInfo) => {
+  const handleUserSubmit = (values: any) => {
     setSelectedUsernameIndex(usernames.indexOf(values.name));
   }
 
@@ -47,7 +47,7 @@ const UserSearch: React.FC = () => {
       <section className="mx-100 px-20 bg-slate-100 justify-start text-left">
         <form className="py-20" onSubmit={userForm.handleSubmit(handleUserSubmit)}>
           <label className="font-bold" htmlFor="name">Search for user</label>
-          <input type="text" id="name" {...userForm.register("name")} />
+          <input className="w-1/2 mx-5 border-4 rounded-md" type="text" id="name" {...userForm.register("name")} />
           <button className="bg-slate-100" type="submit">Submit</button>
         </form>
 

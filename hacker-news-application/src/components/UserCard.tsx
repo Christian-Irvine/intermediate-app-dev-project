@@ -22,7 +22,7 @@ const UserCard: React.FC<UserProps> = (props: UserProps) => {
 
   return (
     <>
-      <Card className="bg-cover aspect-[15/16] py-0 flex shadow-md justify-between bg-slate-700">
+      <Card className="bg-cover aspect-[15/16] py-0 flex shadow-md justify-between bg-slate-700 m-30">
         <CardTitle className="text-white font-bold text-lg">
           <p className="bg-linear-to-t from-0% to-gray-950 py-5 rounded-t-xl px-5">{props.id || "No Id."}</p>
         </CardTitle>
