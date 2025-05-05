@@ -1,8 +1,10 @@
+import QuizSelection from "./components/QuizSelection"
+
 const App: React.FC = () => {
   return (
-    <p>
-      Chicken Jockey
-    </p>
+    <>
+      <QuizSelection/>
+    </>
   )
 }
 
