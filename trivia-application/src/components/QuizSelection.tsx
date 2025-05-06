@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { queryClient } from "../main";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 interface QuizSelectionData {
   name: string;
@@ -21,64 +21,62 @@ const QuizSelection: React.FC = () => {
     type: "Any Type",
   }
 
-  const { mutate: getQuizMutation, data: getQuizData } =
-  useMutation({
-    mutationFn: (quizData: QuizSelectionData) =>
-      fetch(getURL(quizData), {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: quizData.name,
-          amount: quizData.amount,
-          category: quizData.category,
-          difficulty: quizData.difficulty,
-          type: quizData.type,
-        }),
-      }).then((res) => {
-        console.log(res);
-        if (res.status === 201 || res.status === 200) {
-          quizSelectionForm.reset((formValues) => ({
-            ...formValues,
-            name: defaultValues.name,
-            amount: defaultValues.amount,
-            category: defaultValues.category,
-            difficulty: defaultValues.difficulty,
-            type: defaultValues.type,
-          }));
-        }
-        return res.json();
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["quizData"],
-      })
-    }
+  const [formValues, setFormValues] = useState<QuizSelectionData>(defaultValues)
+  
+  const {
+    isLoading,
+    error,
+    data: quizData,
+    refetch
+  } = useQuery({
+    enabled: false,
+    queryKey: ["quizData"],
+    queryFn: () =>
+      fetch(getURL(formValues)).then((res) => res.json()),
   });
 
-  const handleQuizFormSubmit = (values: QuizSelectionData) => getQuizMutation(values)
+  const handleQuizFormSubmit = (values: QuizSelectionData) => {
+    setFormValues(values);
+    refetch();
+  };
 
-  const getURL = (values: any) => {
-    return `https://opentdb.com/api.php?amount=${values.amount || defaultValues}&category=${values.category || defaultValues.category}&difficulty=${values.difficulty || defaultValues.difficulty}&type=${values.type || defaultValues.type}`
+  const getURL = (values: QuizSelectionData) => {
+    const baseURL = `https://opentdb.com/api.php`
+    let URL = baseURL;
+
+    URL += `?amount=${values.amount || defaultValues.amount}`;
+
+    if (values.category && values.category !== defaultValues.category) URL += `&category=${values.category}`;
+
+    if (values.difficulty && values.difficulty !== defaultValues.difficulty) URL += `&difficulty=${values.difficulty}`;
+
+    if (values.type && values.type !== defaultValues.type) URL += `&type=${values.type}`;
+
+    // if (values.type === defaultValues.type) URL += `&type=${defaultValues.type}`;
+    // else if (values.type) URL += `&type=${values.type}`;
+
+    return URL;
   }
-  
+
+  if (quizData) {
+    console.log(quizData);
+  }
+
   return (
     <>
       <form onSubmit={quizSelectionForm.handleSubmit(handleQuizFormSubmit)}>
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" {...quizSelectionForm.register("name")} />
+        <input type="text" id="name" value={defaultValues.name} {...quizSelectionForm.register("name")} />
         <label htmlFor="amount">Amount</label>
-        <input type="text" id="amount" {...quizSelectionForm.register("amount")} />
+        <input type="text" id="amount" value={defaultValues.amount} {...quizSelectionForm.register("amount")} />
         <label htmlFor="category">Category</label>
-        <input type="text" id="category" {...quizSelectionForm.register("category")}/>
+        <input type="text" id="category" value={defaultValues.category} {...quizSelectionForm.register("category")}/>
         <label htmlFor="difficulty">Difficulty</label>
-        <input type="text" id="difficulty" {...quizSelectionForm.register("difficulty")}/>
+        <input type="text" id="difficulty" value={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}/>
         <label htmlFor="type">type</label>
-        <input type="text" id="Type" {...quizSelectionForm.register("type")}/>
+        <input type="text" id="Type" value={defaultValues.type} {...quizSelectionForm.register("type")}/>
         <button type="submit">Submit</button>
       </form>
-      <p>{}</p>
     </>
   )
 }
