@@ -66,15 +66,15 @@ const QuizSelection: React.FC = () => {
     <>
       <form onSubmit={quizSelectionForm.handleSubmit(handleQuizFormSubmit)}>
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" value={defaultValues.name} {...quizSelectionForm.register("name")} />
+        <input type="text" id="name" defaultValue={defaultValues.name} {...quizSelectionForm.register("name")} />
         <label htmlFor="amount">Amount</label>
-        <input type="text" id="amount" value={defaultValues.amount} {...quizSelectionForm.register("amount")} />
+        <input type="number" id="amount" defaultValue={defaultValues.amount} {...quizSelectionForm.register("amount")} />
         <label htmlFor="category">Category</label>
-        <input type="text" id="category" value={defaultValues.category} {...quizSelectionForm.register("category")}/>
+        <input type="text" id="category" defaultValue={defaultValues.category} {...quizSelectionForm.register("category")}/>
         <label htmlFor="difficulty">Difficulty</label>
-        <input type="text" id="difficulty" value={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}/>
+        <input type="text" id="difficulty" defaultValue={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}/>
         <label htmlFor="type">type</label>
-        <input type="text" id="Type" value={defaultValues.type} {...quizSelectionForm.register("type")}/>
+        <input type="text" id="Type" defaultValue={defaultValues.type} {...quizSelectionForm.register("type")}/>
         <button type="submit">Submit</button>
       </form>
     </>
