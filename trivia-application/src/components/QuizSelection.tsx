@@ -33,7 +33,7 @@ const QuizSelection: React.FC = () => {
     enabled: false,
     queryKey: ["quizData"],
     queryFn: () =>
-      fetch(getMainURL(formValues)).then((res: Response) => res.json()),
+      fetch(getQuizURL(formValues)).then((res: Response) => res.json()),
   });
 
   const handleQuizFormSubmit = (values: QuizSelectionData) => {
@@ -42,7 +42,7 @@ const QuizSelection: React.FC = () => {
     refetch();
   };
 
-  const getMainURL = (values: QuizSelectionData) => {
+  const getQuizURL = (values: QuizSelectionData) => {
     const baseURL = `https://opentdb.com/api.php`;
     let URL = baseURL;
 
@@ -53,8 +53,6 @@ const QuizSelection: React.FC = () => {
     if (values.difficulty && values.difficulty !== defaultValues.difficulty) URL += `&difficulty=${values.difficulty}`;
 
     if (values.type && values.type !== defaultValues.type) URL += `&type=${values.type}`;
-
-    console.log(URL);
 
     return URL;
   }
@@ -73,14 +71,19 @@ const QuizSelection: React.FC = () => {
     return `https://opentdb.com/api_category.php`;
   }
 
+  if (categoryError) {
+    return (
+      <>
+        <h1>There was an error, Please try again later</h1>
+        <p>{categoryError}</p>
+      </>
+    )
+  }
+
   if (categoryIsLoading || !categoryData) {
     return (
       <h1>Loading...</h1>
     )
-  }
-
-  if (quizData) {
-    console.log(quizData);
   }
 
   const difficulties = ['easy', 'medium', 'hard'];
