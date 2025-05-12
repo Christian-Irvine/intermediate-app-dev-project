@@ -18,8 +18,8 @@ const QuizSelection: React.FC = () => {
     name: "Anonymous",
     amount: 10,
     category: "any-category",
-    difficulty: "Any Difficulty",
-    type: "Any Type",
+    difficulty: "any-difficulty",
+    type: "any-type",
   }
 
   let formValues = defaultValues
@@ -83,9 +83,16 @@ const QuizSelection: React.FC = () => {
     console.log(quizData);
   }
 
-  // if (categoryData) {
-  //   console.log(categoryData.trivia_categories)
-  // }
+  const difficulties = ['easy', 'medium', 'hard'];
+  const types = [
+  {
+    id: 'multiple',
+    name: 'Multi Choice'
+  }, 
+  {
+    id: 'boolean',
+    name: 'True or False'
+  }];
 
   return (
     <>
@@ -102,9 +109,19 @@ const QuizSelection: React.FC = () => {
           ))}
         </select>
         <label htmlFor="difficulty">Difficulty</label>
-        <input type="text" id="difficulty" defaultValue={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}/>
-        <label htmlFor="type">type</label>
-        <input type="text" id="Type" defaultValue={defaultValues.type} {...quizSelectionForm.register("type")}/>
+        <select id="difficulty" defaultValue={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}>
+          <option value={defaultValues.difficulty}>{getDisplayName(defaultValues.difficulty)}</option>
+          {difficulties.map((difficulty: any) => (
+            <option key={difficulty} value={difficulty}>{getDisplayName(difficulty)}</option>
+          ))}
+        </select>
+        <label htmlFor="type">Type</label>
+        <select id="type" defaultValue={defaultValues.type} {...quizSelectionForm.register("type")}>
+          <option value={defaultValues.type}>{getDisplayName(defaultValues.type)}</option>
+          {types.map((type: any) => (
+            <option key={type.id} value={type.id}>{type.name}</option>
+          ))}
+        </select>
         <button type="submit">Submit</button>
       </form>
     </>
