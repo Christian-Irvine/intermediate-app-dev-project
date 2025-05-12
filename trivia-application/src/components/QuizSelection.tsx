@@ -24,15 +24,15 @@ const QuizSelection: React.FC = () => {
   const [formValues, setFormValues] = useState<QuizSelectionData>(defaultValues)
   
   const {
-    isLoading,
-    error,
+    quizIsLoading,
+    quizError,
     data: quizData,
     refetch
   } = useQuery({
     enabled: false,
     queryKey: ["quizData"],
     queryFn: () =>
-      fetch(getURL(formValues)).then((res) => res.json()),
+      fetch(getMainURL(formValues)).then((res: Response) => res.json()),
   });
 
   const handleQuizFormSubmit = (values: QuizSelectionData) => {
@@ -40,8 +40,8 @@ const QuizSelection: React.FC = () => {
     refetch();
   };
 
-  const getURL = (values: QuizSelectionData) => {
-    const baseURL = `https://opentdb.com/api.php`
+  const getMainURL = (values: QuizSelectionData) => {
+    const baseURL = `https://opentdb.com/api.php`;
     let URL = baseURL;
 
     URL += `?amount=${values.amount || defaultValues.amount}`;
@@ -52,14 +52,29 @@ const QuizSelection: React.FC = () => {
 
     if (values.type && values.type !== defaultValues.type) URL += `&type=${values.type}`;
 
-    // if (values.type === defaultValues.type) URL += `&type=${defaultValues.type}`;
-    // else if (values.type) URL += `&type=${values.type}`;
-
     return URL;
+  }
+
+  const {
+    isLoading,
+    error,
+    data: categoryData,
+  } = useQuery({
+    queryKey: ["categoryData"],
+    queryFn: () =>
+      fetch(getCategoryURL()).then((res: Response) => res.json()),
+  });
+
+  const getCategoryURL = () => {
+    return `https://opentdb.com/api_category.php`;
   }
 
   if (quizData) {
     console.log(quizData);
+  }
+
+  if (categoryData) {
+    console.log(categoryData.trivia_categories)
   }
 
   return (
@@ -70,7 +85,11 @@ const QuizSelection: React.FC = () => {
         <label htmlFor="amount">Amount</label>
         <input type="number" id="amount" defaultValue={defaultValues.amount} {...quizSelectionForm.register("amount")} />
         <label htmlFor="category">Category</label>
-        <input type="text" id="category" defaultValue={defaultValues.category} {...quizSelectionForm.register("category")}/>
+        <select id="category" defaultValue={defaultValues.category} {...quizSelectionForm.register("category")}>
+          <option value="volvo">Volvo</option>
+          <option value="chicken">Chicken</option>
+          <option value="jockey">Jockey</option>
+        </select>
         <label htmlFor="difficulty">Difficulty</label>
         <input type="text" id="difficulty" defaultValue={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}/>
         <label htmlFor="type">type</label>
