@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { getDisplayName } from "../Utils";
 
 interface QuizSelectionData {
   name: string;
@@ -16,12 +17,12 @@ const QuizSelection: React.FC = () => {
   const defaultValues: QuizSelectionData = {
     name: "Anonymous",
     amount: 10,
-    category: "Any Category",
+    category: "any-category",
     difficulty: "Any Difficulty",
     type: "Any Type",
   }
 
-  const [formValues, setFormValues] = useState<QuizSelectionData>(defaultValues)
+  let formValues = defaultValues
   
   const {
     quizIsLoading,
@@ -36,7 +37,8 @@ const QuizSelection: React.FC = () => {
   });
 
   const handleQuizFormSubmit = (values: QuizSelectionData) => {
-    setFormValues(values);
+    console.log(values);
+    formValues = values;
     refetch();
   };
 
@@ -52,12 +54,14 @@ const QuizSelection: React.FC = () => {
 
     if (values.type && values.type !== defaultValues.type) URL += `&type=${values.type}`;
 
+    console.log(URL);
+
     return URL;
   }
 
   const {
-    isLoading,
-    error,
+    categoryIsLoading,
+    categoryError,
     data: categoryData,
   } = useQuery({
     queryKey: ["categoryData"],
@@ -69,13 +73,19 @@ const QuizSelection: React.FC = () => {
     return `https://opentdb.com/api_category.php`;
   }
 
+  if (categoryIsLoading || !categoryData) {
+    return (
+      <h1>Loading...</h1>
+    )
+  }
+
   if (quizData) {
     console.log(quizData);
   }
 
-  if (categoryData) {
-    console.log(categoryData.trivia_categories)
-  }
+  // if (categoryData) {
+  //   console.log(categoryData.trivia_categories)
+  // }
 
   return (
     <>
@@ -86,9 +96,10 @@ const QuizSelection: React.FC = () => {
         <input type="number" id="amount" defaultValue={defaultValues.amount} {...quizSelectionForm.register("amount")} />
         <label htmlFor="category">Category</label>
         <select id="category" defaultValue={defaultValues.category} {...quizSelectionForm.register("category")}>
-          <option value="volvo">Volvo</option>
-          <option value="chicken">Chicken</option>
-          <option value="jockey">Jockey</option>
+          <option value={defaultValues.category}>{getDisplayName(defaultValues.category)}</option>
+          {categoryData.trivia_categories.map((category: any) => (
+            <option key={category.id} value={category.id}>{getDisplayName(category.name)}</option>
+          ))}
         </select>
         <label htmlFor="difficulty">Difficulty</label>
         <input type="text" id="difficulty" defaultValue={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}/>
