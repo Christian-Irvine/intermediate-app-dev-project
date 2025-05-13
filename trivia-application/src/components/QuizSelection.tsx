@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getDisplayName } from "../Utils";
+import { useDispatch } from "react-redux";
+import { setQuizData } from "../slices/quizDataSlice";
 
 interface QuizSelectionData {
   name: string;
@@ -12,12 +14,13 @@ interface QuizSelectionData {
 }
 
 interface QuizSelectionProps {
-  setQuizData: Function
+  setQuizData: Function;
 }
 
-const QuizSelection: React.FC<any> = (props: QuizSelectionProps) => {
+const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) => {
   const quizSelectionForm = useForm();
-  
+  const dispatch = useDispatch();
+
   const defaultValues: QuizSelectionData = {
     name: "Anonymous",
     amount: 10,
@@ -36,12 +39,16 @@ const QuizSelection: React.FC<any> = (props: QuizSelectionProps) => {
   } = useQuery({
     enabled: false,
     queryKey: ["quizData"],
-    queryFn: () =>
-      fetch(getQuizURL(formValues)).then((res: Response) => res.json()),
+    queryFn: () => 
+      fetch(getQuizURL(formValues)).then((res: Response) => res.json().then(props.setQuizData(quizData))),
   });
 
-  const handleQuizFormSubmit = (values: QuizSelectionData) => {
-    props.setQuizData('Howdy')
+  useEffect(() => {
+    console.log("Hey");
+    () => props.setQuizData();
+  }, [quizData]);
+
+  const handleQuizFormSubmit = (values: QuizSelectionData) => {      
     formValues = values;
     refetch();
   };
@@ -100,11 +107,6 @@ const QuizSelection: React.FC<any> = (props: QuizSelectionProps) => {
     id: 'boolean',
     name: 'True or False'
   }];
-
-  if (quizData) {
-    console.log("chicken joekcy");
-    props.setQuizData('Hello!');
-  }
 
   return (
     <>
