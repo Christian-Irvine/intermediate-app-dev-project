@@ -11,7 +11,11 @@ interface QuizSelectionData {
   type: string;
 }
 
-const QuizSelection: React.FC = () => {
+interface QuizSelectionProps {
+  setQuizData: Function
+}
+
+const QuizSelection: React.FC<any> = (props: QuizSelectionProps) => {
   const quizSelectionForm = useForm();
   
   const defaultValues: QuizSelectionData = {
@@ -37,7 +41,7 @@ const QuizSelection: React.FC = () => {
   });
 
   const handleQuizFormSubmit = (values: QuizSelectionData) => {
-    console.log(values);
+    props.setQuizData('Howdy')
     formValues = values;
     refetch();
   };
@@ -96,6 +100,11 @@ const QuizSelection: React.FC = () => {
     id: 'boolean',
     name: 'True or False'
   }];
+
+  if (quizData) {
+    console.log("chicken joekcy");
+    props.setQuizData('Hello!');
+  }
 
   return (
     <>
