@@ -1,17 +1,15 @@
-import QuizSelection from "./components/QuizSelection"
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import Quiz from "./components/Quiz"
 
 const App: React.FC = () => {
-  const [quizData, setQuizData] = useState(undefined);
+  // const [quizData, setQuizData] = useState(undefined);
 
-  useEffect(() => {
-    console.log(quizData);
-  }, [quizData]);
+  // useEffect(() => {
+  //   console.log(quizData);
+  // }, [quizData]);
 
   return (
     <>
-      <QuizSelection setQuizData={() => setQuizData}/>
+      <Quiz/>
     </>
   )
 }

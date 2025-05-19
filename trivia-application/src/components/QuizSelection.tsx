@@ -1,72 +1,24 @@
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
 import { getDisplayName } from "../Utils";
-import { useDispatch } from "react-redux";
-import { setQuizData } from "../slices/quizDataSlice";
-
-interface QuizSelectionData {
-  name: string;
-  amount: number;
-  category: string;
-  difficulty: string;
-  type: string;
-}
 
 interface QuizSelectionProps {
-  setQuizData: Function;
+  handleFormSubmit: Function;
+  defaultFormValues: any;
 }
 
 const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) => {
   const quizSelectionForm = useForm();
-  const dispatch = useDispatch();
 
-  const defaultValues: QuizSelectionData = {
-    name: "Anonymous",
-    amount: 10,
-    category: "any-category",
-    difficulty: "any-difficulty",
-    type: "any-type",
-  }
+  // useEffect(() => {
+  //   console.log("Hey");
+  //   () => props.setQuizData();
+  // }, [quizData]);
 
-  let formValues = defaultValues
-  
-  const {
-    quizIsLoading,
-    quizError,
-    data: quizData,
-    refetch
-  } = useQuery({
-    enabled: false,
-    queryKey: ["quizData"],
-    queryFn: () => 
-      fetch(getQuizURL(formValues)).then((res: Response) => res.json().then(props.setQuizData(quizData))),
-  });
-
-  useEffect(() => {
-    console.log("Hey");
-    () => props.setQuizData();
-  }, [quizData]);
-
-  const handleQuizFormSubmit = (values: QuizSelectionData) => {      
-    formValues = values;
-    refetch();
-  };
-
-  const getQuizURL = (values: QuizSelectionData) => {
-    const baseURL = `https://opentdb.com/api.php`;
-    let URL = baseURL;
-
-    URL += `?amount=${values.amount || defaultValues.amount}`;
-
-    if (values.category && values.category !== defaultValues.category) URL += `&category=${values.category}`;
-
-    if (values.difficulty && values.difficulty !== defaultValues.difficulty) URL += `&difficulty=${values.difficulty}`;
-
-    if (values.type && values.type !== defaultValues.type) URL += `&type=${values.type}`;
-
-    return URL;
-  }
+  // const handleQuizFormSubmit = (values: QuizSelectionData) => {      
+  //   formValues = values;
+  //   refetch();
+  // };
 
   const {
     categoryIsLoading,
@@ -110,28 +62,28 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
 
   return (
     <>
-      <form onSubmit={quizSelectionForm.handleSubmit(handleQuizFormSubmit)}>
+      <form onSubmit={quizSelectionForm.handleSubmit(() => props.handleFormSubmit())}>
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" defaultValue={defaultValues.name} {...quizSelectionForm.register("name")} />
+        <input type="text" id="name" defaultValue={props.defaultFormValues.name} {...quizSelectionForm.register("name")} />
         <label htmlFor="amount">Amount</label>
-        <input type="number" id="amount" defaultValue={defaultValues.amount} {...quizSelectionForm.register("amount")} />
+        <input type="number" id="amount" defaultValue={props.defaultFormValues.amount} {...quizSelectionForm.register("amount")} />
         <label htmlFor="category">Category</label>
-        <select id="category" defaultValue={defaultValues.category} {...quizSelectionForm.register("category")}>
-          <option value={defaultValues.category}>{getDisplayName(defaultValues.category)}</option>
+        <select id="category" defaultValue={props.defaultFormValues.category} {...quizSelectionForm.register("category")}>
+          <option value={props.defaultFormValues.category}>{getDisplayName(props.defaultFormValues.category)}</option>
           {categoryData.trivia_categories.map((category: any) => (
             <option key={category.id} value={category.id}>{getDisplayName(category.name)}</option>
           ))}
         </select>
         <label htmlFor="difficulty">Difficulty</label>
-        <select id="difficulty" defaultValue={defaultValues.difficulty} {...quizSelectionForm.register("difficulty")}>
-          <option value={defaultValues.difficulty}>{getDisplayName(defaultValues.difficulty)}</option>
+        <select id="difficulty" defaultValue={props.defaultFormValues.difficulty} {...quizSelectionForm.register("difficulty")}>
+          <option value={props.defaultFormValues.difficulty}>{getDisplayName(props.defaultFormValues.difficulty)}</option>
           {difficulties.map((difficulty: any) => (
             <option key={difficulty} value={difficulty}>{getDisplayName(difficulty)}</option>
           ))}
         </select>
         <label htmlFor="type">Type</label>
-        <select id="type" defaultValue={defaultValues.type} {...quizSelectionForm.register("type")}>
-          <option value={defaultValues.type}>{getDisplayName(defaultValues.type)}</option>
+        <select id="type" defaultValue={props.defaultFormValues.type} {...quizSelectionForm.register("type")}>
+          <option value={props.defaultFormValues.type}>{getDisplayName(props.defaultFormValues.type)}</option>
           {types.map((type: any) => (
             <option key={type.id} value={type.id}>{type.name}</option>
           ))}
