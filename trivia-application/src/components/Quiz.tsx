@@ -1,9 +1,8 @@
 import QuizSelection from "./QuizSelection";
 import QuizDisplay from "./QuizDisplay";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import QuizLogo from "./QuizLogo";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { queryClient } from "../main";
 
 interface QuizSelectionData {
   name: string;
@@ -25,6 +24,7 @@ const Quiz: React.FC = () => {
   const [formValues, setFormValues] = useState(defaultValues);
 
   const {
+    error: quizError,
     data: quizData,
     refetch
   } = useQuery({
@@ -33,10 +33,6 @@ const Quiz: React.FC = () => {
     queryFn: () => 
       fetch(getQuizURL(formValues)).then((res: Response) => res.json()),
   });
-
-  // useEffect(() => {
-  //   console.log(quizData);
-  // }, [quizData]);
 
   const getQuizURL = (values: QuizSelectionData) => {
     const baseURL = `https://opentdb.com/api.php`;
@@ -58,16 +54,26 @@ const Quiz: React.FC = () => {
     refetch();
   };
 
-  console.log(quizData);
+  if (quizError) {
+    return (
+      <>
+        <h1>There was an error, Please try again later</h1>
+        <p>{quizError.message}</p>
+      </>
+    )
+  }
 
   return (
     <>
-      {quizData && quizData.response_code === 0 ? (
-        <QuizDisplay/>
-      ) : (
-        <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues}/>
-      )}
-      
+      <div className="items-center bg-amber-100 h-screen">
+        <QuizLogo/>
+
+        {quizData && quizData.response_code === 0 ? (
+          <QuizDisplay/>
+        ) : (
+          <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues}/>
+        )}
+      </div>
     </>
   )
 }

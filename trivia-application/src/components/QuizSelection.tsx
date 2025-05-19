@@ -21,8 +21,8 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
   // };
 
   const {
-    categoryIsLoading,
-    categoryError,
+    isLoading: categoryIsLoading,
+    error: categoryError,
     data: categoryData,
   } = useQuery({
     queryKey: ["categoryData"],
@@ -38,7 +38,7 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
     return (
       <>
         <h1>There was an error, Please try again later</h1>
-        <p>{categoryError}</p>
+        <p>{categoryError.message}</p>
       </>
     )
   }
@@ -65,8 +65,10 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
       <form onSubmit={quizSelectionForm.handleSubmit(() => props.handleFormSubmit())}>
         <label htmlFor="name">Name</label>
         <input type="text" id="name" defaultValue={props.defaultFormValues.name} {...quizSelectionForm.register("name")} />
+
         <label htmlFor="amount">Amount</label>
         <input type="number" id="amount" defaultValue={props.defaultFormValues.amount} {...quizSelectionForm.register("amount")} />
+
         <label htmlFor="category">Category</label>
         <select id="category" defaultValue={props.defaultFormValues.category} {...quizSelectionForm.register("category")}>
           <option value={props.defaultFormValues.category}>{getDisplayName(props.defaultFormValues.category)}</option>
@@ -74,6 +76,7 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
             <option key={category.id} value={category.id}>{getDisplayName(category.name)}</option>
           ))}
         </select>
+
         <label htmlFor="difficulty">Difficulty</label>
         <select id="difficulty" defaultValue={props.defaultFormValues.difficulty} {...quizSelectionForm.register("difficulty")}>
           <option value={props.defaultFormValues.difficulty}>{getDisplayName(props.defaultFormValues.difficulty)}</option>
@@ -81,6 +84,7 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
             <option key={difficulty} value={difficulty}>{getDisplayName(difficulty)}</option>
           ))}
         </select>
+
         <label htmlFor="type">Type</label>
         <select id="type" defaultValue={props.defaultFormValues.type} {...quizSelectionForm.register("type")}>
           <option value={props.defaultFormValues.type}>{getDisplayName(props.defaultFormValues.type)}</option>
@@ -88,6 +92,7 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
             <option key={type.id} value={type.id}>{type.name}</option>
           ))}
         </select>
+        
         <button type="submit">Submit</button>
       </form>
     </>
