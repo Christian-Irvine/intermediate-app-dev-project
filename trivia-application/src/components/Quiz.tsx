@@ -4,7 +4,7 @@ import QuizLogo from "./QuizLogo";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-interface QuizSelectionData {
+export interface QuizSelectionData {
   name: string;
   amount: number;
   category: string;
@@ -69,7 +69,7 @@ const Quiz: React.FC = () => {
         <QuizLogo/>
 
         {quizData && quizData.response_code === 0 ? (
-          <QuizDisplay/>
+          <QuizDisplay results={quizData.results}/>
         ) : (
           <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues}/>
         )}

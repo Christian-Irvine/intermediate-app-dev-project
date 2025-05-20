@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { getDisplayName } from "../Utils";
+import type { QuizSelectionData } from "./Quiz"; 
 
 interface QuizSelectionProps {
   handleFormSubmit: Function;
-  defaultFormValues: any;
+  defaultFormValues: QuizSelectionData; 
 }
 
 const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) => {
