@@ -37,15 +37,15 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
   if (categoryError) {
     return (
       <>
-        <h1>There was an error, Please try again later</h1>
-        <p>{categoryError.message}</p>
+        <h1 className="justify-self-center">There was an error, Please try again later</h1>
+        <p className="justify-self-center">{categoryError.message}</p>
       </>
     )
   }
 
   if (categoryIsLoading || !categoryData) {
     return (
-      <h1>Loading...</h1>
+      <h1 className="justify-self-center">Loading...</h1>
     )
   }
 
