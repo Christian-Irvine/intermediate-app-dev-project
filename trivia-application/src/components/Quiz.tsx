@@ -3,6 +3,7 @@ import QuizDisplay from "./QuizDisplay";
 import QuizLogo from "./QuizLogo";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { getDisplayName } from "../Utils";
 
 export interface QuizSelectionData {
   name: string;
@@ -22,6 +23,7 @@ const Quiz: React.FC = () => {
   }
 
   const [formValues, setFormValues] = useState(defaultValues);
+  const [playQuiz, setPlayQuiz] = useState(false);
 
   const {
     error: quizError,
@@ -52,7 +54,12 @@ const Quiz: React.FC = () => {
   const handleQuizFormSubmit: Function = (values: QuizSelectionData) => {
     setFormValues(values);
     refetch();
+    setPlayQuiz(true);
   };
+
+  const resetQuiz = () => {
+    setPlayQuiz(false);
+  }
 
   if (quizError) {
     return (
@@ -68,8 +75,8 @@ const Quiz: React.FC = () => {
       <div className="items-center bg-amber-100 h-screen">
         <QuizLogo/>
 
-        {quizData && quizData.response_code === 0 ? (
-          <QuizDisplay results={quizData.results}/>
+        {quizData && quizData.response_code === 0 && playQuiz ? (
+          <QuizDisplay results={quizData.results} userName={"jim"} resetQuiz={() => resetQuiz} quizType={getDisplayName("any")}/> // formValues.name formValues.type
         ) : (
           <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues}/>
         )}

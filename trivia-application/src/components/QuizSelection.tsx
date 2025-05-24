@@ -11,16 +11,6 @@ interface QuizSelectionProps {
 const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) => {
   const quizSelectionForm = useForm();
 
-  // useEffect(() => {
-  //   console.log("Hey");
-  //   () => props.setQuizData();
-  // }, [quizData]);
-
-  // const handleQuizFormSubmit = (values: QuizSelectionData) => {      
-  //   formValues = values;
-  //   refetch();
-  // };
-
   const {
     isLoading: categoryIsLoading,
     error: categoryError,
