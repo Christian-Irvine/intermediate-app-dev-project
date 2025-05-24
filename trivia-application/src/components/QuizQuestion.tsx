@@ -17,46 +17,56 @@ export interface QuizQuestionProps {
   incorrect_answers: Array<string>;
 }
 
-interface QuizQuestions {
-  question: string;
+interface QuizAnswers {
+  answer: string;
   correct_answer: boolean;
 }
 
 const QuizQuestion: React.FC<QuizQuestionProps> = (props: QuizQuestionProps) => {  
   const questionForm = useForm();
-  
   const handleQuestionSubmit = (values: any) => {
     console.log(values)
   }
 
-  const correct_index: number = Math.floor(Math.random() * props.incorrect_answers.length + 1);
+  const jumbleAnswers = () => {
+    const correctAnswerIndex: number = Math.floor(Math.random() * props.incorrect_answers.length + 1);
+    const answers: Array<QuizAnswers> = new Array<QuizAnswers>(props.incorrect_answers.length + 1);
 
-  const questions: Array<QuizQuestions> = [];
+    for (let i = 0; i < props.incorrect_answers.length + 1; i++){
+      if (i < correctAnswerIndex) {
+        answers[i] = {
+          answer: props.incorrect_answers[i],
+          correct_answer: false,
+        }
+      }
+      else if (i === correctAnswerIndex) {
+        answers[i] = {
+          answer: props.correct_answer,
+          correct_answer: true,
+        }
+      }
+      else {
+        answers[i] = {
+          answer: props.incorrect_answers[i - 1],
+          correct_answer: false,
+        }
+      }
+    }
 
-  for (let i = 0; i < props.incorrect_answers.length + 1; i++){
-    if (i < correct_index) {
-      questions[i].question = props.incorrect_answers[i];
-      questions[i].correct_answer = false;
-    }
-    else if (i === correct_index) {
-      questions[i].question = props.correct_answer;
-      questions[i].correct_answer = true;
-    }
-    else {
-      questions[i].question = props.incorrect_answers[i - 1];
-      questions[i].correct_answer = false;
-    }
+    return answers;
   }
-
-  console.log(questions);
+  
+  const answers: Array<QuizAnswers> = jumbleAnswers();
+  console.log(answers);
 
   return (
     <>
+      <p>{props.question}</p>
       <Form>
         <form onSubmit={questionForm.handleSubmit(handleQuestionSubmit)}>
-          {questions.map((question) => 
+          {answers.map((answer) => 
             <FormItem>
-              <Button key={question.question} type="submit" className="text-gray-800">{question.question}</Button>
+              <Button key={answer.answer} type="submit" className="text-gray-800">{answer.answer}</Button>
             </FormItem>
           )}
         </form>
