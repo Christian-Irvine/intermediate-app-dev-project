@@ -1,20 +1,16 @@
-import { useForm } from "react-hook-form";
+import { useForm, } from "react-hook-form";
+
+import parse from 'html-react-parser';
 
 import { Button } from "../components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../components/ui/form"
+import { Label } from "../components/ui/label"
+import { useState, useEffect } from "react";
 
 export interface QuizQuestionProps {
   question: string;
   correct_answer: string;
   incorrect_answers: Array<string>;
+  answerQuestion: Function;
 }
 
 interface QuizAnswers {
@@ -23,23 +19,24 @@ interface QuizAnswers {
 }
 
 const QuizQuestion: React.FC<QuizQuestionProps> = (props: QuizQuestionProps) => {  
+  const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number>(-1);
+  const [answers, setAnswers] = useState<Array<QuizAnswers>>([]);
+
   const questionForm = useForm();
-  const handleQuestionSubmit = (values: any) => {
-    console.log(values)
-  }
 
   const jumbleAnswers = () => {
-    const correctAnswerIndex: number = Math.floor(Math.random() * props.incorrect_answers.length + 1);
+    const correctIndex = Math.floor(Math.random() * props.incorrect_answers.length + 1);
+    setCorrectAnswerIndex(correctIndex);
     const answers: Array<QuizAnswers> = new Array<QuizAnswers>(props.incorrect_answers.length + 1);
 
     for (let i = 0; i < props.incorrect_answers.length + 1; i++){
-      if (i < correctAnswerIndex) {
+      if (i < correctIndex) {
         answers[i] = {
           answer: props.incorrect_answers[i],
           correct_answer: false,
         }
       }
-      else if (i === correctAnswerIndex) {
+      else if (i === correctIndex) {
         answers[i] = {
           answer: props.correct_answer,
           correct_answer: true,
@@ -56,21 +53,22 @@ const QuizQuestion: React.FC<QuizQuestionProps> = (props: QuizQuestionProps) => 
     return answers;
   }
   
-  const answers: Array<QuizAnswers> = jumbleAnswers();
-  console.log(answers);
+  useEffect(() => {
+    setAnswers(jumbleAnswers());
+  }, [props.correct_answer]);
 
   return (
     <>
-      <p>{props.question}</p>
-      <Form>
-        <form onSubmit={questionForm.handleSubmit(handleQuestionSubmit)}>
-          {answers.map((answer) => 
-            <FormItem>
-              <Button key={answer.answer} type="submit" className="text-gray-800">{answer.answer}</Button>
-            </FormItem>
-          )}
-        </form>
-      </Form>
+      <section className="flex justify-center m-40">
+        <div>
+          <Label htmlFor="question" className="text-2xl">{parse(props.question)}</Label>
+          <article className="flex justify-center">
+            {answers.map((answer, index) => 
+              <Button key={answer.answer} onClick={() => props.answerQuestion(index == correctAnswerIndex)} type="submit" className="text-gray-800 m-10">{parse(answer.answer)}</Button>
+            )}
+          </article>
+        </div>
+      </section>
     </>
   )
 }
