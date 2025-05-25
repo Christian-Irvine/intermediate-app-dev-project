@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { getDisplayName } from "../Utils";
+import { useEffect } from "react";
 import type { QuizSelectionData } from "./Quiz"; 
 
 interface QuizSelectionProps {
   handleFormSubmit: Function;
+  setCategoryData: Function;
   defaultFormValues: QuizSelectionData; 
 }
 
@@ -24,6 +26,12 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
   const getCategoryURL = () => {
     return `https://opentdb.com/api_category.php`;
   }
+
+  useEffect(() => {
+    if (categoryData) {
+      props.setCategoryData(categoryData);
+    }
+  }, [categoryData]);
 
   if (categoryError) {
     return (
@@ -51,12 +59,14 @@ const QuizSelection: React.FC<QuizSelectionProps> = (props: QuizSelectionProps) 
     name: 'True or False'
   }];
 
+  const handleFormSubmit = (values: any) => props.handleFormSubmit(values);
+
   return (
     <>
       <section>
         <h2 className="font-bold text-2xl justify-self-center pb-10 pt-5">Craft Your Quiz!</h2>
 
-        <form onSubmit={quizSelectionForm.handleSubmit(() => props.handleFormSubmit())} className="justify-center flex">
+        <form onSubmit={quizSelectionForm.handleSubmit(handleFormSubmit)} className="justify-center flex">
           <article className="px-5">
             <label htmlFor="name" className="pr-2">Name:</label>
             <input type="text" id="name" defaultValue={props.defaultFormValues.name} {...quizSelectionForm.register("name")} />

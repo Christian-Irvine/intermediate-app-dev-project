@@ -1,9 +1,8 @@
 import QuizSelection from "./QuizSelection";
 import QuizDisplay from "./QuizDisplay";
 import QuizLogo from "./QuizLogo";
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getDisplayName } from "../Utils";
 
 export interface QuizSelectionData {
   name: string;
@@ -22,8 +21,9 @@ const Quiz: React.FC = () => {
     type: "any-type",
   }
 
-  const [formValues, setFormValues] = useState(defaultValues);
-  const [playQuiz, setPlayQuiz] = useState(false);
+  const [formValues, setFormValues] = useState<QuizSelectionData>(defaultValues);
+  const [playQuiz, setPlayQuiz] = useState<boolean>(false);
+  const [categoryData, setCategoryData] = useState<Array<string>>([]);
 
   const {
     error: quizError,
@@ -53,9 +53,14 @@ const Quiz: React.FC = () => {
 
   const handleQuizFormSubmit: Function = (values: QuizSelectionData) => {
     setFormValues(values);
-    refetch();
     setPlayQuiz(true);
   };
+
+  useEffect(() => {
+    if (playQuiz) {
+      refetch();
+    }
+  }, [formValues]);
 
   const resetQuiz = () => {
     setPlayQuiz(false);
@@ -76,9 +81,9 @@ const Quiz: React.FC = () => {
         <QuizLogo/>
 
         {quizData && quizData.response_code === 0 && playQuiz ? (
-          <QuizDisplay results={quizData.results} userName={"jim"} resetQuiz={() => resetQuiz} quizType={getDisplayName("any")}/> // formValues.name formValues.type
+          <QuizDisplay results={quizData.results} userName={formValues.name} resetQuiz={() => resetQuiz} categoryData={categoryData} category={formValues.category}/> // formValues.name formValues.type
         ) : (
-          <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues}/>
+          <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues} setCategoryData={setCategoryData}/>
         )}
       </div>
     </>

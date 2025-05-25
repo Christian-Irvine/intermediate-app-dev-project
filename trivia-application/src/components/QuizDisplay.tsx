@@ -1,18 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import QuizQuestion from "./QuizQuestion";
 import type { QuizQuestionProps } from "./QuizQuestion";
+import type { Score } from "../Utils";
 import { useForm } from "react-hook-form";
 
 import { Button } from "../components/ui/button"
 import { Label } from "../components/ui/label"
 
 import parse from 'html-react-parser';
+import { addNewHighScore, loadHighScores } from "../Utils";
 
 interface QuizDisplayProps {
   results: Array<QuizQuestionProps>;
+  categoryData: Array<string>;
   userName: string;
   resetQuiz: Function;
-  quizType: string;
+  category: string;
 }
 
 const QuizDisplay: React.FC<QuizDisplayProps> = (props: QuizDisplayProps) => { 
@@ -25,8 +28,26 @@ const QuizDisplay: React.FC<QuizDisplayProps> = (props: QuizDisplayProps) => {
   const answerQuestion = (isCorrect: boolean) => {
     quizScore[quizIndex] = isCorrect;
     setQuizIndex(quizIndex + 1);
-    console.log(props.results[quizIndex].correct_answer);
   }
+
+  const saveScore = () => {
+    const score: Score = {
+      userName: props.userName,
+      score: quizScore.filter((score) => score == true).length,
+      category: props.category,
+    }
+
+    addNewHighScore(props.category, score);
+
+    console.log(loadHighScores(props.category));
+  }
+
+  useEffect(() => {
+    if (showAnswers) {
+      saveScore();
+      // map this function down in html loadHighScores();
+    }
+  }, [showAnswers]);
 
   if (quizIndex >= props.results.length) {
     return (
@@ -36,13 +57,14 @@ const QuizDisplay: React.FC<QuizDisplayProps> = (props: QuizDisplayProps) => {
             <article>
               <ol>
                 {props.results.map((question, index) => 
-                  <li className="text-xl w-200 py-2">
+                  <li key={question.question} className="text-xl w-200 py-2">
                     <label>{parse(question.question)}: </label>
                     <label className={(quizScore[index] ? 'text-green-500' : 'text-red-600') + ' font-bold'}>{parse(question.correct_answer)}</label>
                   </li>
                 )}
               </ol>
-              <p className="py-10">{props.userName} scored: {quizScore.filter((score) => score == true).length} points! out of a {quizScore.length} possible points on a {props.quizType} quiz.</p>
+              <p className="py-10">{props.userName} scored: {quizScore.filter((score) => score == true).length} points! out of a {quizScore.length} possible points.</p>
+              
             </article>
           </section>
         ) : (
