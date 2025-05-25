@@ -36,7 +36,7 @@ const Quiz: React.FC = () => {
       fetch(getQuizURL(formValues)).then((res: Response) => res.json()),
   });
 
-  const getQuizURL = (values: QuizSelectionData) => {
+  const getQuizURL: Function = (values: QuizSelectionData) => {
     const baseURL = `https://opentdb.com/api.php`;
     let URL = baseURL;
 
@@ -62,7 +62,7 @@ const Quiz: React.FC = () => {
     }
   }, [formValues]);
 
-  const resetQuiz = () => {
+  const resetQuiz: Function = () => {
     setPlayQuiz(false);
   }
 
@@ -81,7 +81,7 @@ const Quiz: React.FC = () => {
         <QuizLogo/>
 
         {quizData && quizData.response_code === 0 && playQuiz ? (
-          <QuizDisplay results={quizData.results} userName={formValues.name} resetQuiz={() => resetQuiz} categoryData={categoryData} category={formValues.category}/> // formValues.name formValues.type
+          <QuizDisplay results={quizData.results} userName={formValues.name} resetQuiz={resetQuiz} categoryData={categoryData} category={formValues.category}/> // formValues.name formValues.type
         ) : (
           <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues} setCategoryData={setCategoryData}/>
         )}
