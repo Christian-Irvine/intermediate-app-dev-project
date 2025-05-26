@@ -2,7 +2,7 @@ import { type Component, createSignal, For } from 'solid-js';
 
 import TodoDisplay from './TodoDisplay';
 
-interface Todo {
+export interface Todo {
   name: string;
   description: string;
   isComplete: boolean;
@@ -15,14 +15,23 @@ const TodoList: Component = () => {
     isComplete: true,
   },
   {
-    name: "Clean the toilet again",
+    name: "",
     description: "",
     isComplete: false,
-  }] 
+  },
+  {
+    name: "Timesheet",
+    description: "Fill in your timesheet",
+    isComplete: false,
+  },
+  {
+    name: "Finish your intermediate App Dev",
+    description: "You know whatcha gotta do.",
+    isComplete: false,
+  }
+  ];
 
-  const [todos, setTodos] = createSignal<Array<Todo>>(defaultTodos);
-
-  console.log(todos());
+  const [todos, setTodos] = createSignal<Array<Todo>>(defaultTodos);  
 
   return (
     <>
@@ -30,10 +39,10 @@ const TodoList: Component = () => {
       <header className="p-10 shadow-xl sticky bg-orange-300">
         <h1 className="text-7xl text-center font-bold">Todo Time</h1>
       </header>
-      <section className="grid grid-cols-2 gap-20 mx-35 mt-15">
+      <section className="grid grid-cols-3 gap-20 px-35 mt-15 bg-amber-100">
         <For each={todos()}>
           {(todo) =>
-            <TodoDisplay/>
+            <TodoDisplay name={todo.name} description={todo.description} isComplete={todo.isComplete}/>
           }
         </For>
       </section>
