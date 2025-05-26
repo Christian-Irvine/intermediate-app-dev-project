@@ -1,8 +1,18 @@
-import type { Component } from 'solid-js';
+import { type Component } from 'solid-js';
+
+import TodoDisplay from './Components/TodoList';
 
 const App: Component = () => {
+  // createEffect(() => {
+  //   console.log(todos());
+  // });
+
+  // const handleButtonClick = () => {
+  //   setTodos(franks() + 1);
+  // }
+
   return (
-    <p class="text-4xl text-green-700 text-center py-20">Hello tailwind!</p>
+    <TodoDisplay/>
   );
 };
 
