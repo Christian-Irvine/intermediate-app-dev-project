@@ -1,9 +1,13 @@
 import type { Component } from 'solid-js';
 
-const Todo: Component = () => {
+const TodoDisplay: Component = () => {
   return (
-    <p class="text-4xl text-green-700 text-center py-20">Hello i'm a todo</p>
+    <article className="bg-orange-100 ratio aspect-square rounded-3xl p-10 border-orange-200 border-solid border-4 shadow-2xl">
+      <p>name</p>
+      <p>description</p>
+      <p>isComplete</p>
+    </article>
   );
 };
 
-export default Todo;
+export default TodoDisplay;

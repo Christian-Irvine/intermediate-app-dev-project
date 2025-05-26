@@ -1,6 +1,6 @@
 import { type Component } from 'solid-js';
 
-import TodoDisplay from './Components/TodoList';
+import TodoList from './Components/TodoList';
 
 const App: Component = () => {
   // createEffect(() => {
@@ -12,7 +12,7 @@ const App: Component = () => {
   // }
 
   return (
-    <TodoDisplay/>
+    <TodoList/>
   );
 };
 
