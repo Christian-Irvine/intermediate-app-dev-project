@@ -57,6 +57,14 @@ const MovieDisplay: React.FC<RouteProps> = (props: RouteProps) => {
   const displayName: string = getDisplayName(props.type);
 
   if (isLoading) return <h1 className="p-20">Loading...</h1>;
+  console.log(movieData.status_code)
+  if (movieData.status_code === 7)    
+    return (
+      <>
+        <h2 className="p-20">No API Key has been provided</h2>
+        <p>are you sure you added the .env file?</p>
+      </>
+    );
   if (error)
     return (
       <>
