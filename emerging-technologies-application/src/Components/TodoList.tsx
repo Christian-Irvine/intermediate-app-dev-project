@@ -35,14 +35,14 @@ const TodoList: Component = () => {
 
   return (
     <>
-    <section className="h-screen bg-amber-100">
-      <header className="p-10 shadow-xl sticky bg-orange-300">
-        <h1 className="text-7xl text-center font-bold">Todo Time</h1>
+    <section class="h-screen bg-amber-100">
+      <header class="p-10 shadow-xl sticky bg-orange-300">
+        <h1 class="text-7xl text-center font-bold">Todo Time</h1>
       </header>
-      <section className="grid grid-cols-3 gap-20 px-35 mt-15 bg-amber-100">
+      <section class="grid grid-cols-3 gap-20 px-35 mt-15 bg-amber-100">
         <Index each={todos()}>
           {(todo, i) =>
-            <TodoDisplay name={todo.name} description={todo.description} isComplete={todo.isComplete} index={i}/>
+            <TodoDisplay name={todo().name} description={todo().description} isComplete={todo().isComplete} index={i}/>
           }
         </Index>
       </section>
