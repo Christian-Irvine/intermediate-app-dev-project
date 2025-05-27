@@ -1,6 +1,6 @@
-import { type Component } from 'solid-js';
+import { type Component } from "solid-js";
 
-import TodoList from './Components/TodoList';
+import TodoList from "./Components/TodoList";
 
 const App: Component = () => {
   // createEffect(() => {
@@ -11,9 +11,7 @@ const App: Component = () => {
   //   setTodos(franks() + 1);
   // }
 
-  return (
-    <TodoList/>
-  );
+  return <TodoList />;
 };
 
 export default App;
