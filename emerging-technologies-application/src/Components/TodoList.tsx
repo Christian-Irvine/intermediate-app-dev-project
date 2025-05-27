@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Handles a single Todo and its logic
+ */
+
 import { type Component, createSignal, Index } from "solid-js";
 import { Show } from "solid-js";
 

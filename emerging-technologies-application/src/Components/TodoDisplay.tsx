@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Handles the Todo Lists and their group logic
+ */
+
 import type { Component } from "solid-js";
 
 import { Todo } from "./TodoList";
