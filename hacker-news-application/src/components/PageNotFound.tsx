@@ -1,4 +1,4 @@
-import '../App.css'
+import "../App.css";
 
 const PageNotFound: React.FC = () => {
   return (
@@ -6,8 +6,7 @@ const PageNotFound: React.FC = () => {
       <h1>Error 404: Page Not Found</h1>
       <p>Thou have been pranked as the url doth be wrong</p>
     </>
-  )
-}
-  
-export default PageNotFound
-  
+  );
+};
+
+export default PageNotFound;

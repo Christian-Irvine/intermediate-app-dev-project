@@ -1,19 +1,23 @@
 // turns the url name into the display title for the page
 export const getDisplayName: Function = (type: string) => {
-  let nameArr: string[] = type.replace('-', ' ').split(' ');
+  let nameArr: string[] = type.replace("-", " ").split(" ");
   for (var i = 0; i < nameArr.length; i++) {
-      nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1);     
+    nameArr[i] = nameArr[i].charAt(0).toUpperCase() + nameArr[i].substring(1);
   }
-  
-  return nameArr.join(' ');
-}
+
+  return nameArr.join(" ");
+};
 
 // gets the url for a story in the API
 export const getStoryApiRoute: Function = (id: string) => {
-  return `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
-}
+  return `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`;
+};
 
 export const formatTime: Function = (time: string) => {
   const date: Date = new Date(Number(time) * 1000);
-  return date.toLocaleDateString("nz-ST", {year: "numeric", month: "numeric", day: "numeric"});
-}
+  return date.toLocaleDateString("nz-ST", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  });
+};
