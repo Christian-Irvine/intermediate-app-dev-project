@@ -1,4 +1,4 @@
-const QuizLogo: React.FC = () => {  
+const QuizLogo: React.FC = () => {
   return (
     <>
       <div className="w-full flex justify-center p-10">
@@ -7,7 +7,7 @@ const QuizLogo: React.FC = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default QuizLogo;

@@ -1,4 +1,4 @@
-import Quiz from "./components/Quiz"
+import Quiz from "./components/Quiz";
 
 const App: React.FC = () => {
   // const [quizData, setQuizData] = useState(undefined);
@@ -9,9 +9,9 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Quiz/>
+      <Quiz />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

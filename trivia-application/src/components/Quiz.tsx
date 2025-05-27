@@ -12,27 +12,28 @@ export interface QuizSelectionData {
   type: string;
 }
 
-const Quiz: React.FC = () => {  
+const Quiz: React.FC = () => {
   const defaultValues: QuizSelectionData = {
     name: "Anonymous",
     amount: 10,
     category: "any-category",
     difficulty: "any-difficulty",
     type: "any-type",
-  }
+  };
 
-  const [formValues, setFormValues] = useState<QuizSelectionData>(defaultValues);
+  const [formValues, setFormValues] =
+    useState<QuizSelectionData>(defaultValues);
   const [playQuiz, setPlayQuiz] = useState<boolean>(false);
   const [categoryData, setCategoryData] = useState<Array<string>>([]);
 
   const {
     error: quizError,
     data: quizData,
-    refetch
+    refetch,
   } = useQuery({
     enabled: false,
     queryKey: ["quizData"],
-    queryFn: () => 
+    queryFn: () =>
       fetch(getQuizURL(formValues)).then((res: Response) => res.json()),
   });
 
@@ -42,14 +43,17 @@ const Quiz: React.FC = () => {
 
     URL += `?amount=${values.amount || defaultValues.amount}`;
 
-    if (values.category && values.category !== defaultValues.category) URL += `&category=${values.category}`;
+    if (values.category && values.category !== defaultValues.category)
+      URL += `&category=${values.category}`;
 
-    if (values.difficulty && values.difficulty !== defaultValues.difficulty) URL += `&difficulty=${values.difficulty}`;
+    if (values.difficulty && values.difficulty !== defaultValues.difficulty)
+      URL += `&difficulty=${values.difficulty}`;
 
-    if (values.type && values.type !== defaultValues.type) URL += `&type=${values.type}`;
+    if (values.type && values.type !== defaultValues.type)
+      URL += `&type=${values.type}`;
 
     return URL;
-  }
+  };
 
   const handleQuizFormSubmit: Function = (values: QuizSelectionData) => {
     setFormValues(values);
@@ -64,7 +68,7 @@ const Quiz: React.FC = () => {
 
   const resetQuiz: Function = () => {
     setPlayQuiz(false);
-  }
+  };
 
   if (quizError) {
     return (
@@ -72,22 +76,32 @@ const Quiz: React.FC = () => {
         <h1>There was an error, Please try again later</h1>
         <p>{quizError.message}</p>
       </>
-    )
+    );
   }
 
   return (
     <>
       <div className="items-center bg-amber-100 h-screen">
-        <QuizLogo/>
+        <QuizLogo />
 
         {quizData && quizData.response_code === 0 && playQuiz ? (
-          <QuizDisplay results={quizData.results} userName={formValues.name} resetQuiz={resetQuiz} categoryData={categoryData} category={formValues.category}/> // formValues.name formValues.type
+          <QuizDisplay
+            results={quizData.results}
+            userName={formValues.name}
+            resetQuiz={resetQuiz}
+            categoryData={categoryData}
+            category={formValues.category}
+          /> // formValues.name formValues.type
         ) : (
-          <QuizSelection handleFormSubmit={handleQuizFormSubmit} defaultFormValues={defaultValues} setCategoryData={setCategoryData}/>
+          <QuizSelection
+            handleFormSubmit={handleQuizFormSubmit}
+            defaultFormValues={defaultValues}
+            setCategoryData={setCategoryData}
+          />
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Quiz
+export default Quiz;
