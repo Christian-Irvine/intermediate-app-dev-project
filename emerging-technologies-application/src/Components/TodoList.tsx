@@ -41,6 +41,27 @@ const TodoList: Component = () => {
     setTodos(newTodos);
   }
 
+  const handleTodoModify: Function = (newData: Todo, index: number) => {
+
+    console.log(newData);
+
+    const newTodos: Array<Todo> = [...todos()];
+    newTodos[index] = newData;
+    setTodos(newTodos);
+    console.log(todos());
+  }
+
+  const handleTodoAdd: Function = () => {
+    const newTodos: Array<Todo> = [...todos()];
+    newTodos.push({
+      name: "",
+      description: "",
+      isComplete: false,
+    });
+    setTodos(newTodos);
+    console.log(todos());
+  }
+
   return (
     <>
     <section class="h-screen bg-amber-100">
@@ -50,9 +71,11 @@ const TodoList: Component = () => {
       <section class="grid grid-cols-3 gap-20 px-35 mt-15 bg-amber-100">
         <Index each={todos()}>
           {(todo, i) =>
-            <TodoDisplay name={todo().name} description={todo().description} isComplete={todo().isComplete} index={i} handleTodoRemove={handleTodoRemove}/>
+            <TodoDisplay name={todo().name} description={todo().description} isComplete={todo().isComplete} index={i} handleTodoRemove={handleTodoRemove} handleTodoModify={handleTodoModify}/>
           }
         </Index>
+        <button onClick={() => handleTodoAdd()} class="bg-orange-100 rounded-full aspect-square border-4 border-orange-200 m-40 flex justify-center items-center font-bold align-middle text-9xl shadow-2xl">+
+        </button>
       </section>
     </section>
     </>
