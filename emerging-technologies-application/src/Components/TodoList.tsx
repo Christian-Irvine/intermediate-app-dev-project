@@ -1,4 +1,4 @@
-import { type Component, createSignal, For } from 'solid-js';
+import { type Component, createSignal, Index } from 'solid-js';
 
 import TodoDisplay from './TodoDisplay';
 
@@ -40,11 +40,11 @@ const TodoList: Component = () => {
         <h1 className="text-7xl text-center font-bold">Todo Time</h1>
       </header>
       <section className="grid grid-cols-3 gap-20 px-35 mt-15 bg-amber-100">
-        <For each={todos()}>
-          {(todo) =>
-            <TodoDisplay name={todo.name} description={todo.description} isComplete={todo.isComplete}/>
+        <Index each={todos()}>
+          {(todo, i) =>
+            <TodoDisplay name={todo.name} description={todo.description} isComplete={todo.isComplete} index={i}/>
           }
-        </For>
+        </Index>
       </section>
     </section>
     </>
