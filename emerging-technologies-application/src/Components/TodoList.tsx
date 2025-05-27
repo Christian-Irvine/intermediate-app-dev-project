@@ -33,6 +33,14 @@ const TodoList: Component = () => {
 
   const [todos, setTodos] = createSignal<Array<Todo>>(defaultTodos);  
 
+  const handleTodoRemove: Function = (index: number) => {
+    console.log(index);
+
+    const newTodos: Array<Todo> = [...todos()];
+    newTodos.splice(index, 1);
+    setTodos(newTodos);
+  }
+
   return (
     <>
     <section class="h-screen bg-amber-100">
@@ -42,7 +50,7 @@ const TodoList: Component = () => {
       <section class="grid grid-cols-3 gap-20 px-35 mt-15 bg-amber-100">
         <Index each={todos()}>
           {(todo, i) =>
-            <TodoDisplay name={todo().name} description={todo().description} isComplete={todo().isComplete} index={i}/>
+            <TodoDisplay name={todo().name} description={todo().description} isComplete={todo().isComplete} index={i} handleTodoRemove={handleTodoRemove}/>
           }
         </Index>
       </section>
