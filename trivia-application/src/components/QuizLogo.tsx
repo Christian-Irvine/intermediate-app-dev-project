@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Renders the quiz logo to the screen
+ */
 const QuizLogo: React.FC = () => {
   return (
     <>

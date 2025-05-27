@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Parent quiz logic component, stores data shared between QuizDisplay and QuizSelection. Also fetches data from API
+ */
 import QuizSelection from "./QuizSelection";
 import QuizDisplay from "./QuizDisplay";
 import QuizLogo from "./QuizLogo";

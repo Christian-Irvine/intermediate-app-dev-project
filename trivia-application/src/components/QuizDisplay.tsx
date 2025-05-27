@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Displays the quiz to the screen, also renders specific question based on an index
+ */
 import { useState, useEffect } from "react";
 import QuizQuestion from "./QuizQuestion";
 import type { QuizQuestionProps } from "./QuizQuestion";

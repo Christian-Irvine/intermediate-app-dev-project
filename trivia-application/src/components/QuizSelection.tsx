@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Contains a form for selecting what questions you want in your quiz. Sets to defaults if none are selected
+ */
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { getDisplayName } from "../Utils";

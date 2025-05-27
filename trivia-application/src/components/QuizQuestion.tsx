@@ -1,4 +1,7 @@
-import { useForm } from "react-hook-form";
+/**
+ * Created by Christian James Irvine
+ * Renders a specific question to the screen, adds 2 or 4 buttons based on how many answers there are which does its logic in the QuizDisplay component
+ */
 
 import parse from "html-react-parser";
 
@@ -23,8 +26,6 @@ const QuizQuestion: React.FC<QuizQuestionProps> = (
 ) => {
   const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number>(-1);
   const [answers, setAnswers] = useState<Array<QuizAnswers>>([]);
-
-  const questionForm = useForm();
 
   const jumbleAnswers = () => {
     const correctIndex = Math.floor(
