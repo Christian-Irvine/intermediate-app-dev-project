@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Handles the routes of the website based on an array
+ */
 import { BrowserRouter, Routes, Route } from "react-router";
 import NavBar from "./components/NavBar";
 import MovieDisplay from "./components/MovieDisplay";

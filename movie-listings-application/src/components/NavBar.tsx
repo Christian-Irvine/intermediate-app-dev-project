@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Renders the navbar to the screen, also changes the route based on what button is clicked
+ */
+
 import { Outlet } from "react-router";
 import { NavLink } from "react-router";
 import { getDisplayName } from "../Utils";

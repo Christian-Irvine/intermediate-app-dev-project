@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Contains utility functions for the rest of the project
+ */
+
 // turns the url name into the display title for the page
 export const getDisplayName = (type: string) => {
   let nameArr: string[] = type.replace("-", " ").split(" ");

@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Renders all movie cards to the screen in a grid like format, also fetches the data from the API
+ */
+
 import { useQuery } from "@tanstack/react-query";
 
 import "../App.css";

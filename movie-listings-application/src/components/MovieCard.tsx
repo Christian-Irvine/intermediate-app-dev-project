@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Renders data about a specific movie in a card like format to the screen
+ */
 import { Card, CardTitle } from "./ui/card";
 
 import "../App.css";

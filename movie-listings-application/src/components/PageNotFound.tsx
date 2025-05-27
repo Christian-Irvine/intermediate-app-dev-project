@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Renders when there is no page found at a given URL
+ */
 import "../App.css";
 
 const PageNotFound: React.FC = () => {
