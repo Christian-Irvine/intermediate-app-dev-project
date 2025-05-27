@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Displays a card like format of some story data to give a brief overview of what that is, also fetches that data from the API
+ */
 import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router";
 import parse from "html-react-parser";

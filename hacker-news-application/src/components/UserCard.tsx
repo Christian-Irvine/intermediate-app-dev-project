@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Displays user data to the screen
+ */
 import { Card, CardTitle, CardDescription } from "./ui/card";
 import parse from "html-react-parser";
 import { formatTime } from "../Utils";

@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Displays each story card to the screen, also fetches that data from the API and limits stories to 25
+ */
 import { useQuery } from "@tanstack/react-query";
 
 import "../App.css";

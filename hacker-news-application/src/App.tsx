@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Handles all the routes in the project and displays their relevant components
+ */
+
 import { BrowserRouter, Routes, Route } from "react-router";
 import NavBar from "./components/NavBar";
 import StoryDisplay from "./components/StoryDisplay";

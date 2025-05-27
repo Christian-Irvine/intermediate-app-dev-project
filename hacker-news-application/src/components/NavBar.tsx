@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Contains the NavBar and assigns each route when you click the right button
+ */
+
 import { Outlet } from "react-router";
 import { NavLink } from "react-router";
 import { getDisplayName } from "../Utils";

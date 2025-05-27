@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Displays when there is no page found
+ */
+
 import "../App.css";
 
 const PageNotFound: React.FC = () => {

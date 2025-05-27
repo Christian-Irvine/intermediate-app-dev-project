@@ -1,3 +1,7 @@
+/**
+ * Created by Christian James Irvine
+ * Allows functionality of searching for users from list of top 10 users, also fetches user data from the API
+ */
 import { useQueries } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import UserCard from "./UserCard";

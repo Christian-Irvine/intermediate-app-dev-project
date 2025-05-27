@@ -1,3 +1,8 @@
+/**
+ * Created by Christian James Irvine
+ * Renders out the Story data to the screen and limits it to 5 kids (comments), also fetches that data from the API
+ */
+
 import { useParams } from "react-router";
 import { getStoryApiRoute, getDisplayName, formatTime } from "../Utils";
 import { useQuery } from "@tanstack/react-query";
